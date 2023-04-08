@@ -5,7 +5,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import javax.imageio.ImageIO;
@@ -47,6 +46,21 @@ public class TileManager {
             FileInputStream fisWater = new FileInputStream(water);
             tile[2] = new Tile();
             tile[2].image = ImageIO.read(fisWater);
+
+            File earth = new File("src/res/tiles/earth.png");
+            FileInputStream fisEarth = new FileInputStream(earth);
+            tile[3] = new Tile();
+            tile[3].image = ImageIO.read(fisEarth);
+
+            File tree = new File("src/res/tiles/tree.png");
+            FileInputStream fisTree = new FileInputStream(tree);
+            tile[4] = new Tile();
+            tile[4].image = ImageIO.read(fisTree);
+
+            File sand = new File("src/res/tiles/sand.png");
+            FileInputStream fisSand = new FileInputStream(sand);
+            tile[5] = new Tile();
+            tile[5].image = ImageIO.read(fisSand);
 
         } catch (IOException e) {
             e.printStackTrace();
