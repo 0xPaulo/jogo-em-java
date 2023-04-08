@@ -3,7 +3,7 @@ package entity;
 import java.awt.image.BufferedImage;
 
 public class Entity {
-    public int x, y; // Posição x e y da entidade
+    public int worldX, wordlY; // Posição x e y da entidade
     public int speed; // Velocidade da entidade
 
     // Imagens para a animação da entidade em diferentes direções
