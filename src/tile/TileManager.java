@@ -32,7 +32,7 @@ public class TileManager {
 
         try {
 
-            File grass = new File("src/res/tiles/grass.png");
+            File grass = new File("src/res/tiles/grassMini.png");
             FileInputStream fisGrass = new FileInputStream(grass);
             tile[0] = new Tile();
             tile[0].image = ImageIO.read(fisGrass);
@@ -42,7 +42,7 @@ public class TileManager {
             tile[1] = new Tile();
             tile[1].image = ImageIO.read(fisWall);
 
-            File water = new File("src/res/tiles/water.png");
+            File water = new File("src/res/tiles/waterMini.png");
             FileInputStream fisWater = new FileInputStream(water);
             tile[2] = new Tile();
             tile[2].image = ImageIO.read(fisWater);
@@ -52,12 +52,12 @@ public class TileManager {
             tile[3] = new Tile();
             tile[3].image = ImageIO.read(fisEarth);
 
-            File tree = new File("src/res/tiles/tree.png");
+            File tree = new File("src/res/tiles/treeMini.png");
             FileInputStream fisTree = new FileInputStream(tree);
             tile[4] = new Tile();
             tile[4].image = ImageIO.read(fisTree);
 
-            File sand = new File("src/res/tiles/sand.png");
+            File sand = new File("src/res/tiles/sandMini.png");
             FileInputStream fisSand = new FileInputStream(sand);
             tile[5] = new Tile();
             tile[5].image = ImageIO.read(fisSand);
