@@ -14,8 +14,8 @@ import main.GamePanel;
 public class TileManager {
 
     GamePanel gp;
-    Tile[] tile;
-    int mapTileNum[][];
+    public Tile[] tile;
+    public int mapTileNum[][];
 
     public TileManager(GamePanel gp) {
 
@@ -32,7 +32,7 @@ public class TileManager {
 
         try {
 
-            File grass = new File("src/res/tiles/grassMini.png");
+            File grass = new File("src/res/tiles/grass.png");
             FileInputStream fisGrass = new FileInputStream(grass);
             tile[0] = new Tile();
             tile[0].image = ImageIO.read(fisGrass);
@@ -41,23 +41,28 @@ public class TileManager {
             FileInputStream fisWall = new FileInputStream(wall);
             tile[1] = new Tile();
             tile[1].image = ImageIO.read(fisWall);
+            tile[1].collision = true;
+            
 
-            File water = new File("src/res/tiles/waterMini.png");
+            File water = new File("src/res/tiles/water.png");
             FileInputStream fisWater = new FileInputStream(water);
             tile[2] = new Tile();
             tile[2].image = ImageIO.read(fisWater);
+            tile[2].collision = true;
+            
 
             File earth = new File("src/res/tiles/earth.png");
             FileInputStream fisEarth = new FileInputStream(earth);
             tile[3] = new Tile();
             tile[3].image = ImageIO.read(fisEarth);
 
-            File tree = new File("src/res/tiles/treeMini.png");
+            File tree = new File("src/res/tiles/tree.png");
             FileInputStream fisTree = new FileInputStream(tree);
             tile[4] = new Tile();
             tile[4].image = ImageIO.read(fisTree);
+            tile[4].collision = true;
 
-            File sand = new File("src/res/tiles/sandMini.png");
+            File sand = new File("src/res/tiles/sand.png");
             FileInputStream fisSand = new FileInputStream(sand);
             tile[5] = new Tile();
             tile[5].image = ImageIO.read(fisSand);

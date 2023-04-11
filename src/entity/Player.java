@@ -1,6 +1,7 @@
 package entity;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -23,17 +24,23 @@ public class Player extends Entity {
         this.gp = gp;
         this.keyH = keyH;
 
-        screenX = gp.screenWidth/2;
-        screenY = gp.screenHeight/2;
-        
+        screenX = gp.screenWidth / 2;
+        screenY = gp.screenHeight / 2;
+
+        solidArea = new Rectangle();
+        solidArea.x = 8; // pociçao
+        solidArea.y = 16; // pociçao
+        solidArea.width = 32; // tamanho x
+        solidArea.height = 32; // tamanho y
+
         setDefaultValues();
         getPlayerImage();
     }
 
     public void setDefaultValues() {
 
-        worldX = gp.tileSize * 23 -(gp.tileSize/2);
-        worldX = gp.tileSize * 23 -(gp.tileSize/2);
+        worldX = gp.tileSize * 23 - (gp.tileSize / 2);
+        worldX = gp.tileSize * 23 - (gp.tileSize / 2);
         worldY = gp.tileSize * 21;
         speed = 4;
         direction = "down";
@@ -73,23 +80,38 @@ public class Player extends Entity {
 
             if (keyH.upPressed == true) {
                 direction = "up";
-                worldY -= speed;
 
             } else if (keyH.downPressed == true) {
                 direction = "down";
 
-                worldY += speed;
-
             } else if (keyH.leftPressed == true) {
                 direction = "left";
-
-                worldX -= speed;
 
             } else if (keyH.rightPressend == true) {
                 direction = "right";
 
-                worldX += speed;
+            }
+            // CHECK TILE COLLISION
+            collisionOn = false;
+            gp.cChecker.checkTile(this);
 
+            // IF COLLESION IS FALSE, PLAYER CAN MOVE
+            if (collisionOn == false) {
+
+                switch (direction) {
+                    case "up":
+                        worldY -= speed;
+                        break;
+                    case "down":
+                        worldY += speed;
+                        break;
+                    case "left":
+                        worldX -= speed;
+                        break;
+                    case "right":
+                        worldX += speed;
+                        break;
+                }
             }
 
             spriteCounter++;
