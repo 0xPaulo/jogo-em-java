@@ -18,6 +18,7 @@ public class Player extends Entity {
 
     public final int screenX;
     public final int screenY;
+    int hasKey = 0;
 
     public Player(GamePanel gp, Keyhandler keyH) {
 
@@ -32,7 +33,7 @@ public class Player extends Entity {
         solidArea.y = 25; // pociçao
         solidAreaDefaltX = solidArea.x;
         solidAreaDefaltY = solidArea.y;
-        solidArea.width = 14; // tamanho x
+        solidArea.width = 15; // tamanho x
         solidArea.height = 20; // tamanho y
 
         setDefaultValues();
@@ -135,7 +136,22 @@ public class Player extends Entity {
 
     public void pickUpObject(int i) {
         if (i != 999) {
-            gp.obj[i] = null;
+            String objectName = gp.obj[i].name;
+
+            switch (objectName) {
+                case "Key":
+                    hasKey++;
+                    gp.obj[i] = null;
+                    System.out.println("Key:" + hasKey);
+                    break;
+                case "Door":
+                    if (hasKey > 0) {
+                        gp.obj[i] = null;
+                        hasKey--;
+                    }
+                    System.out.println("Key:" + hasKey);
+
+            }
             // System.out.println("index = " + i);
         }
     }

@@ -11,10 +11,9 @@ public class SuperObject {
     public String name;
     public boolean collision = false;
     public int worldX, worldY;
-    public Rectangle solidArea = new Rectangle(0, 0, 48, 48); //o objeto todo é solido
+    public Rectangle solidArea = new Rectangle(0, 0, 48, 48); // o objeto todo é solido
     public int solidAreaDefaltX = 0;
     public int solidAreaDefaltY = 0;
-    
 
     public void draw(Graphics2D g2, GamePanel gp) {
 
