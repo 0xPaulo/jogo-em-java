@@ -28,10 +28,12 @@ public class Player extends Entity {
         screenY = gp.screenHeight / 2;
 
         solidArea = new Rectangle();
-        solidArea.x = 8; // pociçao
-        solidArea.y = 11; // pociçao
-        solidArea.width = 32; // tamanho x
-        solidArea.height = 32; // tamanho y
+        solidArea.x = 15; // pociçao
+        solidArea.y = 25; // pociçao
+        solidAreaDefaltX = solidArea.x;
+        solidAreaDefaltY = solidArea.y;
+        solidArea.width = 14; // tamanho x
+        solidArea.height = 20; // tamanho y
 
         setDefaultValues();
         getPlayerImage();
@@ -39,9 +41,9 @@ public class Player extends Entity {
 
     public void setDefaultValues() {
 
-        worldX = gp.tileSize * 23 - (gp.tileSize / 2);
-        worldX = gp.tileSize * 23 - (gp.tileSize / 2);
-        worldY = gp.tileSize * 21;
+        worldX = gp.tileSize * 25 - (gp.tileSize / 2);
+        // worldX = gp.tileSize * 23 - (gp.tileSize / 2);
+        worldY = gp.tileSize * 20;
         speed = 4;
         direction = "down";
     }
@@ -95,6 +97,10 @@ public class Player extends Entity {
             collisionOn = false;
             gp.cChecker.checkTile(this);
 
+            // CHECK OBJECT COLLISION
+            int objIndex = gp.cChecker.checkObject(this, true);
+            pickUpObject(objIndex);
+
             // IF COLLESION IS FALSE, PLAYER CAN MOVE
             if (collisionOn == false) {
 
@@ -125,6 +131,13 @@ public class Player extends Entity {
             }
         }
 
+    }
+
+    public void pickUpObject(int i) {
+        if (i != 999) {
+            gp.obj[i] = null;
+            // System.out.println("index = " + i);
+        }
     }
 
     public void draw(Graphics2D g2) {

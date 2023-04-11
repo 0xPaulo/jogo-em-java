@@ -13,5 +13,6 @@ public class Entity {
     public int spriteCounter = 0; // Contador de animação para controlar o número de sprites exibidos
     public int spriteNum = 1; // Número de sprites a serem exibidos em cada animação
     public Rectangle solidArea;
+    public int solidAreaDefaltX, solidAreaDefaltY;
     public boolean collisionOn = false;
 }
