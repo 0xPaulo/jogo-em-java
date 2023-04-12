@@ -25,44 +25,45 @@ public class TileManager {
         mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
 
         getTileImage();
-        loadMap("src/res/maps/world01.txt");
+        // loadMap("src/res/maps/world01.txt");
+        loadMap("src/res/maps/mapateste.txt");
     }
 
     public void getTileImage() {
 
         try {
 
-            File grass = new File("src/res/tiles/grass.png");
+            File grass = new File("src/res/tiles/0.png");
             FileInputStream fisGrass = new FileInputStream(grass);
             tile[0] = new Tile();
             tile[0].image = ImageIO.read(fisGrass);
 
-            File wall = new File("src/res/tiles/wall.png");
+            File wall = new File("src/res/tiles/1.png");
             FileInputStream fisWall = new FileInputStream(wall);
             tile[1] = new Tile();
             tile[1].image = ImageIO.read(fisWall);
             tile[1].collision = true;
             
 
-            File water = new File("src/res/tiles/water.png");
+            File water = new File("src/res/tiles/2.png");
             FileInputStream fisWater = new FileInputStream(water);
             tile[2] = new Tile();
             tile[2].image = ImageIO.read(fisWater);
             tile[2].collision = true;
             
 
-            File earth = new File("src/res/tiles/earth.png");
+            File earth = new File("src/res/tiles/3.png");
             FileInputStream fisEarth = new FileInputStream(earth);
             tile[3] = new Tile();
             tile[3].image = ImageIO.read(fisEarth);
 
-            File tree = new File("src/res/tiles/tree.png");
+            File tree = new File("src/res/tiles/4.png");
             FileInputStream fisTree = new FileInputStream(tree);
             tile[4] = new Tile();
             tile[4].image = ImageIO.read(fisTree);
             tile[4].collision = true;
 
-            File sand = new File("src/res/tiles/sand.png");
+            File sand = new File("src/res/tiles/5.png");
             FileInputStream fisSand = new FileInputStream(sand);
             tile[5] = new Tile();
             tile[5].image = ImageIO.read(fisSand);
