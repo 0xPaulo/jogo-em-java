@@ -1,0 +1,130 @@
+
+
+    public class Player extends Entity
+
+Este é o início da definição da classe Player, que estende (herda) a 
+classe Entity. Aqui estão definidas algumas variáveis:
+
+A variável gp é uma referência ao objeto GamePanel, que será usado 
+pelo jogador para acessar informações do painel do jogo.
+A variável keyH é uma referência ao objeto Keyhandler, que será 
+usado pelo jogador para lidar com as entradas do teclado.
+As variáveis screenX e screenY são constantes que representam a 
+largura e altura da tela do jogo.
+
+A variável hasKey é uma variável inteira que representa se o jogador 
+tem ou não a chave para abrir a porta do nível. Inicialmente, 
+o jogador não tem a chave (o valor é 0).
+
+    public Player(GamePanel gp, Keyhandler keyH) 
+
+Este é o construtor da classe Player, que recebe um objeto 
+GamePanel e um objeto Keyhandler como parâmetros. O construtor 
+inicializa as variáveis gp e keyH com as referências passadas 
+como parâmetros.
+
+Em seguida, o construtor define as variáveis screenX e screenY 
+como a metade da largura e altura do painel do jogo, respectivamente.
+
+A variável solidArea é um objeto do tipo Rectangle, que representa a 
+área sólida do jogador. É definido seu posicionamento (x e y) e 
+tamanho (width e height) iniciais.
+
+As variáveis solidAreaDefaltX e solidAreaDefaltY são definidas 
+com os mesmos valores de solidArea.x e solidArea.y, respectivamente.
+
+    public void setDefaultValues() 
+
+O método setDefaultValues() é chamado para definir alguns valores 
+iniciais para outras variáveis do jogador, como a velocidade e a vida.
+
+O método getPlayerImage() é chamado para carregar a imagem do 
+jogador a partir de um arquivo.
+
+O método setDefaultValues() é chamado no construtor da classe Player 
+e serve para definir alguns valores iniciais para algumas variáveis do jogador.
+
+A variável worldX é definida como a posição inicial do 
+jogador no mundo (não na tela) na coordenada x.
+A variável worldY é definida como a posição inicial do 
+jogador no mundo (não na tela) na coordenada y.
+A variável speed é definida como a velocidade inicial do jogador.
+A variável direction é definida como a direção inicial do jogador (para baixo).
+No geral, este método é usado para definir valores padrão para algumas variáveis do jogador.
+   
+    public void getPlayerImage() 
+
+O método getPlayerImage() é usado para carregar as imagens do jogador 
+a partir de arquivos em disco. São carregadas oito imagens diferentes 
+do jogador, para cada uma das quatro direções (para cima, para baixo, 
+para esquerda e para direita) e dois frames para cada direção. As imagens 
+são armazenadas em variáveis como up1, up2, down1, down2, etc.
+
+O método usa a classe File para criar objetos que representam os arquivos 
+de imagem. Em seguida, o método ImageIO.read() é usado para ler as imagens 
+a partir dos arquivos. Se ocorrer algum erro durante a leitura das imagens, 
+uma exceção IOException será lançada e o erro será impresso no console.
+
+Em resumo, este método é responsável por carregar as imagens do jogador 
+que serão usadas para renderizar o jogador na tela do jogo.
+
+    public void update() 
+
+O método update() é responsável por atualizar a posição do jogador no jogo, 
+além de verificar e tratar colisões com objetos e tiles do mapa.
+
+O método começa verificando se alguma tecla de movimento (setas do teclado) 
+está pressionada. Se alguma tecla estiver pressionada, a direção do jogador é 
+atualizada de acordo. Em seguida, o método verifica se há colisão com um tile 
+ou objeto usando o método checkTile() e checkObject() da classe 
+CollisionChecker, respectivamente.
+
+Se houver colisão com algum objeto, o método pickUpObject() é chamado passando 
+o índice do objeto. Este método é responsável por tratar a interação do jogador 
+com o objeto, por exemplo, adicionar um item no inventário ou abrir uma porta.
+
+Se não houver colisão com nenhum tile ou objeto, o jogador pode se mover livremente 
+na direção indicada pelo usuário. A variável collisionOn é usada para controlar 
+se há colisão ou não.
+
+Por fim, o método atualiza a posição do jogador de acordo com a direção de movimento 
+e também atualiza a animação do jogador, alternando entre as duas imagens correspondentes 
+à direção de movimento. A animação é controlada pelas variáveis spriteNum e spriteCounter, 
+que indicam qual imagem do jogador deve ser renderizada em cada momento. O método update() 
+é chamado várias vezes por segundo pelo loop principal do jogo para garantir que a posição e 
+animação do jogador sejam atualizadas continuamente.
+
+    public void pickUpObject(int i) 
+
+Este método pickUpObject é responsável por tratar a interação do 
+personagem do jogo com os objetos encontrados durante o jogo.
+
+A primeira verificação if verifica se o objeto é válido, ou seja, 
+se ele não é 999.
+Em seguida, é obtido o nome do objeto que foi interagido, utilizando o seu índice i.
+A estrutura switch é utilizada para verificar o tipo de objeto e 
+executar a ação correspondente.
+Caso o objeto seja uma "Key", o som de "pick up" é tocado, a variável 
+hasKey é incrementada, o objeto é removido do jogo e uma mensagem é exibida na tela.
+Se for uma "Door", o som de "door open" é tocado. Se o personagem tiver 
+pelo menos uma chave, a porta é aberta, a chave é removida do personagem, 
+o objeto é removido do jogo e uma mensagem é exibida na tela. Caso contrário, 
+uma mensagem é exibida informando que o personagem não possui a chave necessária.
+Se o objeto for um "Boots", o som de "pick up" é tocado, a variável speed é 
+decrementada em 2 (para deixar o personagem mais lento) e o objeto é removido do jogo.
+Se o objeto for um "Chest", a variável gameFinished é definida como true 
+(para finalizar o jogo), o som de "game over" é tocado e o jogo é finalizado.
+Por fim, é exibido no console o valor atual da variável hasKey, que armazena a 
+quantidade de chaves que o personagem possui.
+
+    public void draw(Graphics2D g2) 
+
+Este método draw é responsável por desenhar o personagem do jogo na tela.
+
+Uma variável image do tipo BufferedImage é inicializada com o valor null.
+Em seguida, é utilizada uma estrutura switch para verificar a direção em 
+que o personagem está se movendo (up, down, left ou right) e definir a imagem 
+correspondente (up1, up2, down1, down2, left1, left2, right1 ou right2) na variável image.
+O valor da variável spriteNum indica qual sprite deve ser exibido na tela (1 ou 2).
+Por fim, é chamado o método drawImage do objeto g2 do tipo Graphics2D para 
+desenhar a imagem image na posição (screenX, screenY) com as dimensões gp.tileSize x gp.tileSize.

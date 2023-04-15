@@ -43,7 +43,6 @@ public class Player extends Entity {
     public void setDefaultValues() {
 
         worldX = gp.tileSize * 25 - (gp.tileSize / 2);
-        // worldX = gp.tileSize * 23 - (gp.tileSize / 2);
         worldY = gp.tileSize * 20;
         speed = 4;
         direction = "down";
@@ -146,11 +145,11 @@ public class Player extends Entity {
                     gp.ui.showMessage("Papa pegou uma chave!");
                     break;
                 case "Door":
+                if (hasKey > 0) {
+                    gp.obj[i] = null;
+                    hasKey--;
+                    gp.ui.showMessage("Abriu");
                     gp.playSE(3);
-                    if (hasKey > 0) {
-                        gp.obj[i] = null;
-                        hasKey--;
-                        gp.ui.showMessage("Abriu");
                     }
                     else{
                         gp.ui.showMessage("Cade a chave?");
@@ -174,9 +173,6 @@ public class Player extends Entity {
     }
 
     public void draw(Graphics2D g2) {
-
-        // g2.setColor(Color.white);
-        // g2.fillRect(x, y, gp.tileSize, gp.tileSize);
 
         BufferedImage image = null;
         switch (direction) {
