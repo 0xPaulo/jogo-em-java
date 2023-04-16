@@ -1,5 +1,6 @@
 package main;
 
+import object.OBJ_Bike;
 import object.OBJ_Boots;
 import object.OBJ_Chest;
 import object.OBJ_Door;
@@ -17,7 +18,7 @@ public class AssetSetter {
         gp.obj[0].worldX = 0 * gp.tileSize;
         gp.obj[0].worldY = 0 * gp.tileSize;
 
-        gp.obj[1] = new OBJ_Key();
+        gp.obj[1] = new OBJ_Bike();
         gp.obj[1].worldX = 24 * gp.tileSize;
         gp.obj[1].worldY = 24 * gp.tileSize;
 
@@ -42,7 +43,7 @@ public class AssetSetter {
         gp.obj[6].worldY = 45 * gp.tileSize;
 
         gp.obj[7] = new OBJ_Boots();
-        gp.obj[7].worldX = 40 * gp.tileSize;
-        gp.obj[7].worldY = 38 * gp.tileSize;
+        gp.obj[7].worldX = 27 * gp.tileSize;
+        gp.obj[7].worldY = 24 * gp.tileSize;
     }
 }

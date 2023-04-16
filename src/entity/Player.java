@@ -19,6 +19,7 @@ public class Player extends Entity {
     public final int screenX;
     public final int screenY;
     public int hasKey = 0;
+    public boolean bike = false;
 
     public Player(GamePanel gp, Keyhandler keyH) {
 
@@ -51,14 +52,15 @@ public class Player extends Entity {
     public void getPlayerImage() {
         try {
 
-            File f1 = new File("./src/res/player/papa_up_1.png");
-            File f2 = new File("./src/res/player/papa_up_2.png");
-            File f3 = new File("./src/res/player/papa_down_1.png");
-            File f4 = new File("./src/res/player/papa_down_2.png");
-            File f5 = new File("./src/res/player/papa_left_1.png");
-            File f6 = new File("./src/res/player/papa_left_2.png");
-            File f7 = new File("./src/res/player/papa_right_1.png");
-            File f8 = new File("./src/res/player/papa_right_2.png");
+            if(bike ==true){
+            File f1 = new File("./src/res/player/papa_up_bike_1.png");
+            File f2 = new File("./src/res/player/papa_up_bike_2.png");
+            File f3 = new File("./src/res/player/papa_down_bike_1.png");
+            File f4 = new File("./src/res/player/papa_down_bike_2.png");
+            File f5 = new File("./src/res/player/papa_left_bike_1.png");
+            File f6 = new File("./src/res/player/papa_left_bike_2.png");
+            File f7 = new File("./src/res/player/papa_right_bike_1.png");
+            File f8 = new File("./src/res/player/papa_right_bike_2.png");
             up1 = ImageIO.read(f1);
             up2 = ImageIO.read(f2);
             down1 = ImageIO.read(f3);
@@ -67,7 +69,25 @@ public class Player extends Entity {
             left2 = ImageIO.read(f6);
             right1 = ImageIO.read(f7);
             right2 = ImageIO.read(f8);
+            }else{
+                File f1 = new File("./src/res/player/papa_up_1.png");
+                File f2 = new File("./src/res/player/papa_up_2.png");
+                File f3 = new File("./src/res/player/papa_down_1.png");
+                File f4 = new File("./src/res/player/papa_down_2.png");
+                File f5 = new File("./src/res/player/papa_left_1.png");
+                File f6 = new File("./src/res/player/papa_left_2.png");
+                File f7 = new File("./src/res/player/papa_right_1.png");
+                File f8 = new File("./src/res/player/papa_right_2.png");
+                up1 = ImageIO.read(f1);
+                up2 = ImageIO.read(f2);
+                down1 = ImageIO.read(f3);
+                down2 = ImageIO.read(f4);
+                left1 = ImageIO.read(f5);
+                left2 = ImageIO.read(f6);
+                right1 = ImageIO.read(f7);
+                right2 = ImageIO.read(f8);
 
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -145,24 +165,33 @@ public class Player extends Entity {
                     gp.ui.showMessage("Papa pegou uma chave!");
                     break;
                 case "Door":
-                if (hasKey > 0) {
-                    gp.obj[i] = null;
-                    hasKey--;
-                    gp.ui.showMessage("Abriu");
-                    gp.playSE(3);
-                    }
-                    else{
+                    if (hasKey > 0) {
+                        gp.obj[i] = null;
+                        hasKey--;
+                        gp.ui.showMessage("Abriu");
+                        gp.playSE(3);
+                    } else {
                         gp.ui.showMessage("Cade a chave?");
                     }
                     System.out.println("Key:" + hasKey);
                     break;
-                case "Boots":
+                case "Bike":
+                    gp.playSE(2);
+                    speed += 2; // velocidade bota
+                    gp.obj[i] = null;
+                    gp.ui.showMessage("Voce pegou a magrela!");
+                    bike = true;
+                    getPlayerImage();
+                    break;
+                    case "Boots":
                     gp.playSE(2);
                     speed -= 2; // velocidade bota
                     gp.obj[i] = null;
                     gp.ui.showMessage("Voce pegou botas pessadas!");
+                    bike = false;
+                    getPlayerImage();
                     break;
-                    case "Chest":
+                case "Chest":
                     gp.ui.gameFinished = true;
                     gp.stopMusic();
                     gp.playSE(4);

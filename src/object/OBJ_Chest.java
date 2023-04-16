@@ -10,9 +10,9 @@ public class OBJ_Chest extends SuperObject {
         name = "Chest";
         try {
 
-            File key = new File("src\\res\\objects\\chest.png");
-            FileInputStream fisKey = new FileInputStream(key);
-            image = ImageIO.read(fisKey);
+            File file = new File("src\\res\\objects\\chest.png");
+            FileInputStream fisFile = new FileInputStream(file);
+            image = ImageIO.read(fisFile);
 
         } catch (Exception e) {
             e.printStackTrace();
