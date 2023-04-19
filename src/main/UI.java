@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.text.DecimalFormat;
 
 import object.OBJ_Key;
 
@@ -16,6 +17,9 @@ public class UI {
     public String message = "";
     int messageCounter = 0;
     public boolean gameFinished = false;
+
+    double playTime;
+    DecimalFormat dFormat = new DecimalFormat("#0.00");
 
     public UI(GamePanel gp) {
         this.gp = gp;
@@ -51,25 +55,32 @@ public class UI {
             textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
             x = gp.screenWidth / 2 - textLength / 2;
             y = gp.screenHeight / 2 - (gp.tileSize * 3);
+            g2.drawString(text, x, y);
+
+
+            text = "Seu tempo: "+ dFormat.format(playTime)+"!";
+            textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+            x = gp.screenWidth / 2 - textLength / 2;
+            y = gp.screenHeight / 2 + (gp.tileSize * 4);
 
             // Desenha a mensagem de vitória na tela
             g2.drawString(text, x, y);
 
-            g2.setFont(arial_80B);
-            g2.setColor(Color.ORANGE);
-            text = "O amor";
-            textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-            x = gp.screenWidth / 2 - textLength / 2;
-            y = gp.screenHeight / 2 + (gp.tileSize * 2);
-            g2.drawString(text, x, y);
+            // g2.setFont(arial_80B);
+            // g2.setColor(Color.ORANGE);
+            // text = "O amor";
+            // textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+            // x = gp.screenWidth / 2 - textLength / 2;
+            // y = gp.screenHeight / 2 + (gp.tileSize * 2);
+            // g2.drawString(text, x, y);
 
-            g2.setFont(arial_30);
-            g2.setColor(Color.ORANGE);
-            text = "Te amo win";
-            textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-            x = gp.screenWidth / 2 - textLength / 2;
-            y = gp.screenHeight / 2 + (gp.tileSize * 5);
-            g2.drawString(text, x, y);
+            // g2.setFont(arial_30);
+            // g2.setColor(Color.ORANGE);
+            // text = "Te amo win";
+            // textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+            // x = gp.screenWidth / 2 - textLength / 2;
+            // y = gp.screenHeight / 2 + (gp.tileSize * 5);
+            // g2.drawString(text, x, y);
 
             // Define a variável de execução do jogo como nula para finalizá-lo
             gp.gameThread = null;
@@ -83,6 +94,10 @@ public class UI {
             // Desenha a imagem da chave coletada e a quantidade de chaves na tela
             g2.drawImage(keyImage, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize, gp.tileSize, null);
             g2.drawString("x " + gp.player.hasKey, 74, 65);
+
+            // Timer
+            playTime += (double) 1 / 60;
+            g2.drawString("Time:" + dFormat.format(playTime), gp.tileSize * 11, 65);
 
             // Verifica se há uma mensagem a ser exibida na tela
             if (messageOn == true) {
