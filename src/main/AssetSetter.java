@@ -1,6 +1,5 @@
 package main;
 
-import object.OBJ_Bike;
 import object.OBJ_Boots;
 import object.OBJ_Chest;
 import object.OBJ_Door;
@@ -14,35 +13,35 @@ public class AssetSetter {
     }
 
     public void setObject() {
-        gp.obj[0] = new OBJ_Key();
+        gp.obj[0] = new OBJ_Key(gp);
         gp.obj[0].worldX = 0 * gp.tileSize;
         gp.obj[0].worldY = 0 * gp.tileSize;
 
-        gp.obj[1] = new OBJ_Bike();
+        gp.obj[1] = new OBJ_Key(gp);
         gp.obj[1].worldX = 24 * gp.tileSize;
         gp.obj[1].worldY = 24 * gp.tileSize;
 
-        gp.obj[2] = new OBJ_Key();
+        gp.obj[2] = new OBJ_Key(gp);
         gp.obj[2].worldX = 22 * gp.tileSize;
         gp.obj[2].worldY = 1 * gp.tileSize;
 
-        gp.obj[3] = new OBJ_Door();
+        gp.obj[3] = new OBJ_Door(gp);
         gp.obj[3].worldX = 46 * gp.tileSize;
         gp.obj[3].worldY = 38 * gp.tileSize;
 
-        gp.obj[4] = new OBJ_Door();
+        gp.obj[4] = new OBJ_Door(gp);
         gp.obj[4].worldX = 28 * gp.tileSize;
         gp.obj[4].worldY = 48 * gp.tileSize;
 
-        gp.obj[5] = new OBJ_Door();
+        gp.obj[5] = new OBJ_Door(gp);
         gp.obj[5].worldX = 12 * gp.tileSize;
         gp.obj[5].worldY = 22 * gp.tileSize;
 
-        gp.obj[6] = new OBJ_Chest();
+        gp.obj[6] = new OBJ_Chest(gp);
         gp.obj[6].worldX = 21 * gp.tileSize;
         gp.obj[6].worldY = 45 * gp.tileSize;
 
-        gp.obj[7] = new OBJ_Boots();
+        gp.obj[7] = new OBJ_Boots(gp);
         gp.obj[7].worldX = 27 * gp.tileSize;
         gp.obj[7].worldY = 24 * gp.tileSize;
     }

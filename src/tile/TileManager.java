@@ -4,12 +4,12 @@ import java.awt.Graphics2D;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStreamReader;
 
 import javax.imageio.ImageIO;
 
 import main.GamePanel;
+import main.UtilityTool;
 
 public class TileManager {
 
@@ -31,46 +31,32 @@ public class TileManager {
 
     public void getTileImage() {
 
+            setup("grass","0",0, false);
+            setup("wall","1",1, true);
+            setup("water","2",2, true);
+            setup("earth","3",3, false);
+            setup("tree","4",4, true);
+            setup("sand","5",5, false);
+            
+    }
+
+    public void setup(String Sprite, String imagePath, int index, boolean collision) {
+
+        UtilityTool uTool = new UtilityTool();
+
         try {
+            File novoSprite = new File("src/res/tiles/" + imagePath + ".png");
+            FileInputStream fis = new FileInputStream(novoSprite);
+            tile[index] = new Tile();
+            tile[index].image = ImageIO.read(fis);
 
-            File grass = new File("src/res/tiles/0.png");
-            FileInputStream fisGrass = new FileInputStream(grass);
-            tile[0] = new Tile();
-            tile[0].image = ImageIO.read(fisGrass);
+            tile[index].image = uTool.scaleImage(tile[index].image, gp.tileSize, gp.tileSize);
+            tile[index].collision = collision;
 
-            File wall = new File("src/res/tiles/1.png");
-            FileInputStream fisWall = new FileInputStream(wall);
-            tile[1] = new Tile();
-            tile[1].image = ImageIO.read(fisWall);
-            tile[1].collision = true;
-            
-
-            File water = new File("src/res/tiles/2.png");
-            FileInputStream fisWater = new FileInputStream(water);
-            tile[2] = new Tile();
-            tile[2].image = ImageIO.read(fisWater);
-            tile[2].collision = true;
-            
-
-            File earth = new File("src/res/tiles/3.png");
-            FileInputStream fisEarth = new FileInputStream(earth);
-            tile[3] = new Tile();
-            tile[3].image = ImageIO.read(fisEarth);
-
-            File tree = new File("src/res/tiles/4.png");
-            FileInputStream fisTree = new FileInputStream(tree);
-            tile[4] = new Tile();
-            tile[4].image = ImageIO.read(fisTree);
-            tile[4].collision = true;
-
-            File sand = new File("src/res/tiles/5.png");
-            FileInputStream fisSand = new FileInputStream(sand);
-            tile[5] = new Tile();
-            tile[5].image = ImageIO.read(fisSand);
-
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
     public void loadMap(String filePath) {
@@ -123,7 +109,7 @@ public class TileManager {
                     worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
                     worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
                 // if para renderizar apenas o que for visivel
-                g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+                g2.drawImage(tile[tileNum].image, screenX, screenY, null);
             }
             // Estas linhas atualizam as variáveis
             worldCol++;

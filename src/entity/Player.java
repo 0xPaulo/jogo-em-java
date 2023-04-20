@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 
 import main.GamePanel;
 import main.Keyhandler;
+import main.UtilityTool;
 
 public class Player extends Entity {
 
@@ -50,47 +51,29 @@ public class Player extends Entity {
     }
 
     public void getPlayerImage() {
+
+        up1 = setup("./src/res/player/papa_up_1.png");
+        up2 = setup("./src/res/player/papa_up_2.png");
+        down1 = setup("./src/res/player/papa_down_1.png");
+        down2 = setup("./src/res/player/papa_down_2.png");
+        left1 = setup("./src/res/player/papa_left_1.png");
+        left2 = setup("./src/res/player/papa_left_2.png");
+        right1 = setup("./src/res/player/papa_right_1.png");
+        right2 = setup("./src/res/player/papa_right_2.png");
+    }
+
+    public BufferedImage setup(String imagePath) {
+
+        UtilityTool uTool = new UtilityTool();
+        BufferedImage image = null;
         try {
-
-            if(bike ==true){
-            File f1 = new File("./src/res/player/papa_up_bike_1.png");
-            File f2 = new File("./src/res/player/papa_up_bike_2.png");
-            File f3 = new File("./src/res/player/papa_down_bike_1.png");
-            File f4 = new File("./src/res/player/papa_down_bike_2.png");
-            File f5 = new File("./src/res/player/papa_left_bike_1.png");
-            File f6 = new File("./src/res/player/papa_left_bike_2.png");
-            File f7 = new File("./src/res/player/papa_right_bike_1.png");
-            File f8 = new File("./src/res/player/papa_right_bike_2.png");
-            up1 = ImageIO.read(f1);
-            up2 = ImageIO.read(f2);
-            down1 = ImageIO.read(f3);
-            down2 = ImageIO.read(f4);
-            left1 = ImageIO.read(f5);
-            left2 = ImageIO.read(f6);
-            right1 = ImageIO.read(f7);
-            right2 = ImageIO.read(f8);
-            }else{
-                File f1 = new File("./src/res/player/papa_up_1.png");
-                File f2 = new File("./src/res/player/papa_up_2.png");
-                File f3 = new File("./src/res/player/papa_down_1.png");
-                File f4 = new File("./src/res/player/papa_down_2.png");
-                File f5 = new File("./src/res/player/papa_left_1.png");
-                File f6 = new File("./src/res/player/papa_left_2.png");
-                File f7 = new File("./src/res/player/papa_right_1.png");
-                File f8 = new File("./src/res/player/papa_right_2.png");
-                up1 = ImageIO.read(f1);
-                up2 = ImageIO.read(f2);
-                down1 = ImageIO.read(f3);
-                down2 = ImageIO.read(f4);
-                left1 = ImageIO.read(f5);
-                left2 = ImageIO.read(f6);
-                right1 = ImageIO.read(f7);
-                right2 = ImageIO.read(f8);
-
-            }
-        } catch (IOException e) {
+            File file = new File(imagePath);
+            image = ImageIO.read(file);
+            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+        } catch (Exception e) {
             e.printStackTrace();
         }
+        return image;
     }
 
     public void update() {
@@ -175,19 +158,11 @@ public class Player extends Entity {
                     }
                     System.out.println("Key:" + hasKey);
                     break;
-                case "Bike":
+                case "Boots":
                     gp.playSE(2);
                     speed += 2; // velocidade bota
                     gp.obj[i] = null;
-                    gp.ui.showMessage("Voce pegou a magrela!");
-                    bike = true;
-                    getPlayerImage();
-                    break;
-                    case "Boots":
-                    gp.playSE(2);
-                    speed -= 2; // velocidade bota
-                    gp.obj[i] = null;
-                    gp.ui.showMessage("Voce pegou botas pessadas!");
+                    gp.ui.showMessage("Voce pegou botas!");
                     bike = false;
                     getPlayerImage();
                     break;
@@ -242,6 +217,6 @@ public class Player extends Entity {
                 break;
 
         }
-        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, screenX, screenY, null);
     }
 }

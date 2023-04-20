@@ -27,7 +27,7 @@ public class UI {
         arial_80B = new Font("Areial", Font.BOLD, 80);
         arial_30 = new Font("Areial", Font.PLAIN, 30);
 
-        OBJ_Key keyUI = new OBJ_Key();
+        OBJ_Key keyUI = new OBJ_Key(gp);
         keyImage = keyUI.image;
     }
 
@@ -92,7 +92,7 @@ public class UI {
             g2.setColor(Color.white);
 
             // Desenha a imagem da chave coletada e a quantidade de chaves na tela
-            g2.drawImage(keyImage, gp.tileSize / 2, gp.tileSize / 2, gp.tileSize, gp.tileSize, null);
+            g2.drawImage(keyImage, gp.tileSize / 2, gp.tileSize / 2, null);
             g2.drawString("x " + gp.player.hasKey, 74, 65);
 
             // Timer
