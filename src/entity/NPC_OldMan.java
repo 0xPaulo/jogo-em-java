@@ -11,7 +11,9 @@ public class NPC_OldMan extends Entity {
         super(gp);
         direction = "down";
         speed = 1;
+
         getImage();
+        setDialogue();
     }
 
     public void getImage() {
@@ -26,10 +28,17 @@ public class NPC_OldMan extends Entity {
         right2 = setup("src\\res\\npc\\pinguim_right_2.png");
     }
 
+    public void setDialogue() {
+        dialogues[0] = "Hello, papa.";
+        dialogues[1] = "Entao a sua nave caiu aqui.";
+        dialogues[2] = "Eu costumava ser um grande pinguim, mas depois que acertaram um flecha no meu joelho.";
+        dialogues[3] = "Alguma coisa me diz que na escada la em baixo tem alguma coisa interresante para voce.";
+    }
+
     public void setAction() {
 
         actionLockCounter++;
-        
+
         if (actionLockCounter == 120) {
             Random random = new Random();
             int i = random.nextInt(100) + 1; // pick up a number 1 to 100
@@ -48,6 +57,14 @@ public class NPC_OldMan extends Entity {
             }
             actionLockCounter = 0;
         }
+    }
+
+    public void speak() {
+        if(dialogues[dialogueIndex]== null){ // [proximo nao existe] Se é null 
+            dialogueIndex = 0; // Volta para o primeiro
+        }
+        gp.ui.currentDialogue = dialogues[dialogueIndex]; //[0] [1]
+        dialogueIndex++; // quando chamar o speak vai passa para o proximo index
     }
 
 }

@@ -138,10 +138,11 @@ public class Player extends Entity {
         }
     }
 
-    public void interactNPC(int i) { //se o index nao é 999
+    public void interactNPC(int i) { // Se o index nao é 999
         if (i != 999) { // o player ta tocando um npc
 
             gp.gameState = gp.dialogueState;
+            gp.npc[i].speak();
         }
     }
 

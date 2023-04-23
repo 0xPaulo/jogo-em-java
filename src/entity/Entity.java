@@ -14,8 +14,9 @@ import main.UtilityTool;
 public class Entity {
 
     GamePanel gp;
-    public int worldX, worldY;
+    public int worldX, worldY; // Entidade no mundo
     public int speed;
+
     // Imagens para a animação da entidade em diferentes direções
     public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
     public String direction; // Direção atual da entidade
@@ -27,15 +28,17 @@ public class Entity {
     // Posição x e y padrão da área sólida para colisão
     public int solidAreaDefaltX, solidAreaDefaltY;
     public boolean collisionOn = false;
-    public int actionLockCounter = 0;
+
+    public int actionLockCounter = 0; // Delay movimento npc
+    String dialogues[] = new String[20];
+    int dialogueIndex = 0;
 
     public Entity(GamePanel gp) {
         this.gp = gp;
     }
 
-    public void setAction() {
-    }
-
+    public void setAction() {}
+    public void speak() {}
     public void update() {
 
         setAction();

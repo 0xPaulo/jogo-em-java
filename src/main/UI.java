@@ -71,21 +71,27 @@ public class UI {
         int y = gp.tileSize / 2; // de cima pra baixo
         int width = gp.screenWidth - (gp.tileSize * 4);
         int height = gp.tileSize * 4; // 5 tiles de altura
-
         drawSubWindow(x, y, width, height);
+
+        // TEXTO DENTRO DA JANELA
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN,32));
+        x += gp.tileSize;
+        y += gp.tileSize;
+        g2.drawString(currentDialogue,x,y);
+
     }
 
     public void drawSubWindow(int x, int y, int width, int height) {
 
-        Color c = new Color (0,0,0,210); //255 max transparencia
+        Color c = new Color(0, 0, 0, 210); // 255 max transparencia
         g2.setColor(c);
         g2.fillRoundRect(x, y, width, height, 35, 35); // 35 borda
 
         // Bordas Brancas
-        c = new Color(255,255,255);
+        c = new Color(255, 255, 255);
         g2.setColor(c);
-        g2.setStroke(new BasicStroke(5)); //5 pixels
-        g2.drawRoundRect(x+5, y+5, width-10, height-10, 25, 25);
+        g2.setStroke(new BasicStroke(5)); // 5 pixels
+        g2.drawRoundRect(x + 5, y + 5, width - 10, height - 10, 25, 25);
     }
 
     public int getXforCenterdText(String text) {
