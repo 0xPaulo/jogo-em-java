@@ -1,23 +1,35 @@
 package entity;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
 import main.GamePanel;
 import main.Keyhandler;
 
 public class Player extends Entity {
 
-    GamePanel gp;
     Keyhandler keyH;
 
+    public final int screenX;
+    public final int screenY;
+    public boolean bike = false;
+
     public Player(GamePanel gp, Keyhandler keyH) {
-        this.gp = gp;
+
+        super(gp);
+
         this.keyH = keyH;
+
+        screenX = gp.screenWidth / 2;
+        screenY = gp.screenHeight / 2;
+
+        solidArea = new Rectangle();
+        solidArea.x = 15; // pociçao
+        solidArea.y = 25; // pociçao
+        solidAreaDefaltX = solidArea.x;
+        solidAreaDefaltY = solidArea.y;
+        solidArea.width = 15; // tamanho x
+        solidArea.height = 20; // tamanho y
 
         setDefaultValues();
         getPlayerImage();
@@ -25,36 +37,24 @@ public class Player extends Entity {
 
     public void setDefaultValues() {
 
-        x = 100;
-        y = 100;
+        worldX = gp.tileSize * 25 - (gp.tileSize / 2);
+        worldY = gp.tileSize * 20;
         speed = 4;
         direction = "down";
     }
 
     public void getPlayerImage() {
-        try {
 
-            File f1 = new File("./src/res/player/papa_up_1.png");
-            File f2 = new File("./src/res/player/papa_up_2.png");
-            File f3 = new File("./src/res/player/papa_down_1.png");
-            File f4 = new File("./src/res/player/papa_down_2.png");
-            File f5 = new File("./src/res/player/papa_left_1.png");
-            File f6 = new File("./src/res/player/papa_left_2.png");
-            File f7 = new File("./src/res/player/papa_right_1.png");
-            File f8 = new File("./src/res/player/papa_right_2.png");
-            up1 = ImageIO.read(f1);
-            up2 = ImageIO.read(f2);
-            down1 = ImageIO.read(f3);
-            down2 = ImageIO.read(f4);
-            left1 = ImageIO.read(f5);
-            left2 = ImageIO.read(f6);
-            right1 = ImageIO.read(f7);
-            right2 = ImageIO.read(f8);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        up1 = setup("./src/res/player/papa_up_1.png");
+        up2 = setup("./src/res/player/papa_up_2.png");
+        down1 = setup("./src/res/player/papa_down_1.png");
+        down2 = setup("./src/res/player/papa_down_2.png");
+        left1 = setup("./src/res/player/papa_left_1.png");
+        left2 = setup("./src/res/player/papa_left_2.png");
+        right1 = setup("./src/res/player/papa_right_1.png");
+        right2 = setup("./src/res/player/papa_right_2.png");
     }
+
 
     public void update() {
 
@@ -65,23 +65,46 @@ public class Player extends Entity {
 
             if (keyH.upPressed == true) {
                 direction = "up";
-                y -= speed;
 
             } else if (keyH.downPressed == true) {
                 direction = "down";
 
-                y += speed;
-
             } else if (keyH.leftPressed == true) {
                 direction = "left";
-
-                x -= speed;
 
             } else if (keyH.rightPressend == true) {
                 direction = "right";
 
-                x += speed;
+            }
+            // CHECK TILE COLLISION
+            collisionOn = false;
+            gp.cChecker.checkTile(this);
 
+            // CHECK OBJECT COLLISION
+            int objIndex = gp.cChecker.checkObject(this, true);
+            pickUpObject(objIndex);
+
+            // CHECK NPC COLLISION
+            int npcIndex= gp.cChecker.checkEntity(this, gp.npc);
+            interactNPC(npcIndex);
+
+            // IF COLLESION IS FALSE, PLAYER CAN MOVE
+            if (collisionOn == false) {
+
+                switch (direction) {
+                    case "up":
+                        worldY -= speed;
+                        break;
+                    case "down":
+                        worldY += speed;
+                        break;
+                    case "left":
+                        worldX -= speed;
+                        break;
+                    case "right":
+                        worldX += speed;
+                        break;
+                }
             }
 
             spriteCounter++;
@@ -97,12 +120,34 @@ public class Player extends Entity {
 
     }
 
+    public void pickUpObject(int i) {
+        if (i != 999) {
+            String objectName = gp.obj[i].name;
+
+            switch (objectName) {
+
+                case "Boots":
+                    gp.playSE(2);
+                    speed += 2; // velocidade bota
+                    gp.obj[i] = null;
+                    gp.ui.showMessage("Voce pegou botas!");
+                    bike = false;
+                    getPlayerImage();
+                    break;
+
+            }
+        }
+    }
+    public void interactNPC(int i){
+        if(i != 999){
+            System.out.println("vc ta batendo no pinguim");
+        }
+    }
+
     public void draw(Graphics2D g2) {
 
-        // g2.setColor(Color.white);
-        // g2.fillRect(x, y, gp.tileSize, gp.tileSize);
-
         BufferedImage image = null;
+        
         switch (direction) {
             case "up":
                 if (spriteNum == 1) {
@@ -141,6 +186,6 @@ public class Player extends Entity {
                 break;
 
         }
-        g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, screenX, screenY, null);
     }
 }
