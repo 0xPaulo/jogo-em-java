@@ -3,27 +3,21 @@ package entity;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.io.File;
-
-import javax.imageio.ImageIO;
-
 import main.GamePanel;
 import main.Keyhandler;
-import main.UtilityTool;
 
 public class Player extends Entity {
 
-    GamePanel gp;
     Keyhandler keyH;
 
     public final int screenX;
     public final int screenY;
-    public int hasKey = 0;
     public boolean bike = false;
 
     public Player(GamePanel gp, Keyhandler keyH) {
 
-        this.gp = gp;
+        super(gp);
+
         this.keyH = keyH;
 
         screenX = gp.screenWidth / 2;
@@ -61,19 +55,6 @@ public class Player extends Entity {
         right2 = setup("./src/res/player/papa_right_2.png");
     }
 
-    public BufferedImage setup(String imagePath) {
-
-        UtilityTool uTool = new UtilityTool();
-        BufferedImage image = null;
-        try {
-            File file = new File(imagePath);
-            image = ImageIO.read(file);
-            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return image;
-    }
 
     public void update() {
 
@@ -102,6 +83,10 @@ public class Player extends Entity {
             // CHECK OBJECT COLLISION
             int objIndex = gp.cChecker.checkObject(this, true);
             pickUpObject(objIndex);
+
+            // CHECK NPC COLLISION
+            int npcIndex= gp.cChecker.checkEntity(this, gp.npc);
+            interactNPC(npcIndex);
 
             // IF COLLESION IS FALSE, PLAYER CAN MOVE
             if (collisionOn == false) {
@@ -140,23 +125,7 @@ public class Player extends Entity {
             String objectName = gp.obj[i].name;
 
             switch (objectName) {
-                case "Key":
-                    gp.playSE(1);
-                    hasKey++;
-                    gp.obj[i] = null;
-                    gp.ui.showMessage("Papa pegou uma chave!");
-                    break;
-                case "Door":
-                    if (hasKey > 0) {
-                        gp.obj[i] = null;
-                        hasKey--;
-                        gp.ui.showMessage("Abriu");
-                        gp.playSE(3);
-                    } else {
-                        gp.ui.showMessage("Cade a chave?");
-                    }
-                    System.out.println("Key:" + hasKey);
-                    break;
+
                 case "Boots":
                     gp.playSE(2);
                     speed += 2; // velocidade bota
@@ -165,19 +134,20 @@ public class Player extends Entity {
                     bike = false;
                     getPlayerImage();
                     break;
-                case "Chest":
-                    gp.ui.gameFinished = true;
-                    gp.stopMusic();
-                    gp.playSE(4);
-                    break;
+
             }
-            // System.out.println("index = " + i);
+        }
+    }
+    public void interactNPC(int i){
+        if(i != 999){
+            System.out.println("vc ta batendo no pinguim");
         }
     }
 
     public void draw(Graphics2D g2) {
 
         BufferedImage image = null;
+        
         switch (direction) {
             case "up":
                 if (spriteNum == 1) {

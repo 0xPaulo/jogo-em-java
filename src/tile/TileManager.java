@@ -69,6 +69,12 @@ public class TileManager {
             setup("table","035",35, false);
             setup("ladder01","036",36, false);
             setup("ladder02","037",37, false);
+            setup("ship01","038",38, true);
+            setup("ship02","039",39, true);
+            setup("ship03","040",40, true);
+            setup("ship04","041",41, true);
+            setup("ship05","042",42, true);
+            setup("ship06","043",43, true);
 
 
 

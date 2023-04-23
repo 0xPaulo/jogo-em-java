@@ -132,4 +132,97 @@ public class CollisionChecker {
         }
         return index;
     }
+
+    // NPC OR MONSTER
+    public int checkEntity(Entity entity, Entity[] target) {
+        int index = 999;
+
+        for (int i = 0; i < target.length; i++) {
+
+            if (target[i] != null) {
+                // Get entity's solid area position
+                entity.solidArea.x = entity.worldX + entity.solidArea.x;
+                entity.solidArea.y = entity.worldY + entity.solidArea.y;
+                // Get the object's solid area position
+                target[i].solidArea.x = target[i].worldX + target[i].solidAreaDefaltX;
+                target[i].solidArea.y = target[i].worldY + target[i].solidAreaDefaltY;
+
+                switch (entity.direction) {
+                    case "up":
+                        entity.solidArea.y -= entity.speed;
+                        if (entity.solidArea.intersects(target[i].solidArea)) {
+                            entity.collisionOn = true;
+                            index = i;
+                        }
+                        break;
+                    case "down":
+                        entity.solidArea.y += entity.speed;
+                        if (entity.solidArea.intersects(target[i].solidArea)) {
+                            entity.collisionOn = true;
+                            index = i;
+                        }
+                        break;
+                    case "left":
+                        entity.solidArea.x -= entity.speed;
+                        if (entity.solidArea.intersects(target[i].solidArea)) {
+                            entity.collisionOn = true;
+                            index = i;
+                        }
+                        break;
+                    case "right":
+                        entity.solidArea.x += entity.speed;
+                        if (entity.solidArea.intersects(target[i].solidArea)) {
+                            entity.collisionOn = true;
+                            index = i;
+                            break;
+                        }
+                }
+                entity.solidArea.x = entity.solidAreaDefaltX;
+                entity.solidArea.y = entity.solidAreaDefaltY;
+                target[i].solidArea.x = target[i].solidAreaDefaltX;
+                target[i].solidArea.y = target[i].solidAreaDefaltY;
+            }
+        }
+        return index;
+    }
+
+    public void checkPlayer(Entity entity) {
+        // Get entity's solid area position
+        entity.solidArea.x = entity.worldX + entity.solidArea.x;
+        entity.solidArea.y = entity.worldY + entity.solidArea.y;
+        // Get the object's solid area position
+        gp.player.solidArea.x = gp.player.worldX + gp.player.solidAreaDefaltX;
+        gp.player.solidArea.y = gp.player.worldY + gp.player.solidAreaDefaltY;
+
+        switch (entity.direction) {
+            case "up":
+                entity.solidArea.y -= entity.speed;
+                if (entity.solidArea.intersects(gp.player.solidArea)) {
+                    entity.collisionOn = true;
+                }
+                break;
+            case "down":
+                entity.solidArea.y += entity.speed;
+                if (entity.solidArea.intersects(gp.player.solidArea)) {
+                    entity.collisionOn = true;
+                }
+                break;
+            case "left":
+                entity.solidArea.x -= entity.speed;
+                if (entity.solidArea.intersects(gp.player.solidArea)) {
+                    entity.collisionOn = true;
+                }
+                break;
+            case "right":
+                entity.solidArea.x += entity.speed;
+                if (entity.solidArea.intersects(gp.player.solidArea)) {
+                    entity.collisionOn = true;
+                    break;
+                }
+        }
+        entity.solidArea.x = entity.solidAreaDefaltX;
+        entity.solidArea.y = entity.solidAreaDefaltY;
+        gp.player.solidArea.x = gp.player.solidAreaDefaltX;
+        gp.player.solidArea.y = gp.player.solidAreaDefaltY;
+    }
 }
