@@ -12,19 +12,17 @@ import main.UtilityTool;
 
 // Classe que representa uma entidade do jogo
 public class Entity {
+
     GamePanel gp;
-
     public int worldX, worldY;
-
     public int speed;
     // Imagens para a animação da entidade em diferentes direções
     public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
-    // Direção atual da entidade
-    public String direction;
-    // Contador de animação para controlar o número de sprites exibidos
-    public int spriteCounter = 0;
-    // Número de sprites a serem exibidos em cada animação
-    public int spriteNum = 1;
+    public String direction; // Direção atual da entidade
+
+    public int spriteCounter = 0; // número de sprites exibidos
+    public int spriteNum = 1; // Número de sprites cada animação
+
     public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
     // Posição x e y padrão da área sólida para colisão
     public int solidAreaDefaltX, solidAreaDefaltY;
@@ -35,7 +33,9 @@ public class Entity {
         this.gp = gp;
     }
 
-    public void setAction() {}
+    public void setAction() {
+    }
+
     public void update() {
 
         setAction();
@@ -71,6 +71,7 @@ public class Entity {
             spriteCounter = 0;
         }
     }
+
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
@@ -123,6 +124,7 @@ public class Entity {
             g2.drawImage(image, screenX, screenY, null);
         }
     }
+
     public BufferedImage setup(String imagePath) {
 
         UtilityTool uTool = new UtilityTool();
