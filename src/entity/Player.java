@@ -55,7 +55,6 @@ public class Player extends Entity {
         right2 = setup("./src/res/player/papa_right_2.png");
     }
 
-
     public void update() {
 
         if (keyH.upPressed == true
@@ -85,7 +84,7 @@ public class Player extends Entity {
             pickUpObject(objIndex);
 
             // CHECK NPC COLLISION
-            int npcIndex= gp.cChecker.checkEntity(this, gp.npc);
+            int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
             interactNPC(npcIndex);
 
             // IF COLLESION IS FALSE, PLAYER CAN MOVE
@@ -138,16 +137,22 @@ public class Player extends Entity {
             }
         }
     }
-    public void interactNPC(int i){
-        if(i != 999){
-            System.out.println("vc ta batendo no pinguim");
+
+    public void interactNPC(int i) { // Se o index nao é 999
+        if (i != 999) { // o player ta tocando um npc
+
+            if (gp.keyH.enterPressed == true) {
+                gp.gameState = gp.dialogueState;
+                gp.npc[i].speak();
+            }
         }
+        gp.keyH.enterPressed = false;
     }
 
     public void draw(Graphics2D g2) {
 
         BufferedImage image = null;
-        
+
         switch (direction) {
             case "up":
                 if (spriteNum == 1) {
@@ -187,5 +192,10 @@ public class Player extends Entity {
 
         }
         g2.drawImage(image, screenX, screenY, null);
+
+        // DEBUG COLLISION
+        // Color c = new Color(255, 0, 0, 200); // 255 max transparencia
+        // g2.setColor(c);
+        // g2.fillRect(screenX + 12, screenY + 23, 20, 24);
     }
 }

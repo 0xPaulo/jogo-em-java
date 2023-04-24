@@ -4,14 +4,16 @@ import java.util.Random;
 
 import main.GamePanel;
 
-public class NPC_OldMan extends Entity {
+public class NPC_Pinguim extends Entity {
 
-    public NPC_OldMan(GamePanel gp) {
+    public NPC_Pinguim(GamePanel gp) {
 
         super(gp);
-        direction = "down";
+        direction = "right";
         speed = 1;
+
         getImage();
+        setDialogue();
     }
 
     public void getImage() {
@@ -26,10 +28,18 @@ public class NPC_OldMan extends Entity {
         right2 = setup("src\\res\\npc\\pinguim_right_2.png");
     }
 
-    public void setAction() {
+    public void setDialogue() {
+        dialogues[0] = "Salve, papa.";
+        dialogues[1] = "Entao a sua nave caiu aqui.";
+        dialogues[2] = "Eu costumava ser um grande \npinguim, mas depois que acertaram \num flecha no meu joelho.";
+        dialogues[3] = "Alguma coisa me diz que na escada \nla em baixo tem alguma coisa \ninterresante para voce.";
+        dialogues[4] = "Nao falo com bandeirantes.";
+    }
+
+    public void setAction() { // ia movimentaçao
 
         actionLockCounter++;
-        
+
         if (actionLockCounter == 120) {
             Random random = new Random();
             int i = random.nextInt(100) + 1; // pick up a number 1 to 100
@@ -48,6 +58,12 @@ public class NPC_OldMan extends Entity {
             }
             actionLockCounter = 0;
         }
+    }
+
+    public void speak() {
+
+        // Do this character specific stuff
+        super.speak();
     }
 
 }

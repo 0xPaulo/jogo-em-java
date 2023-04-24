@@ -33,7 +33,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     // SYSTEM
     TileManager tileM = new TileManager(this);
-    Keyhandler keyH = new Keyhandler(this);
+    public Keyhandler keyH = new Keyhandler(this);
     Sound music = new Sound();
     Sound se = new Sound();
     public CollisionChecker cChecker = new CollisionChecker(this);
@@ -50,6 +50,7 @@ public class GamePanel extends JPanel implements Runnable {
     public int gameState;
     public final int playState = 1;
     public final int pauseState = 2;
+    public final int dialogueState = 3;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -62,7 +63,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void setupGame() {
         aSetter.setObject();
         aSetter.setNPC();
-        playMusic(0);
+        // playMusic(0);
         // stopMusic();
         gameState = playState;
     }
@@ -111,10 +112,10 @@ public class GamePanel extends JPanel implements Runnable {
             // PLAYER
             player.update();
             // NPC
-            for(int i = 0;i< npc.length;i++)
-            if(npc[i] != null){
-                npc[i].update();
-            }
+            for (int i = 0; i < npc.length; i++)
+                if (npc[i] != null) {
+                    npc[i].update();
+                }
         }
         if (gameState == pauseState) {
             // nothing
@@ -156,7 +157,7 @@ public class GamePanel extends JPanel implements Runnable {
         // UI
         ui.draw(g2);
 
-        // DEBUG
+        // DEBUG T
         if (keyH.checkDrawTime == true) {
             long drawEnd = System.nanoTime();
             long passed = drawEnd - drawStart;

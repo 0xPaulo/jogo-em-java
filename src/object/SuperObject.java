@@ -1,5 +1,6 @@
 package object;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -27,9 +28,13 @@ public class SuperObject {
                 worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
                 worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
 
-                    
             // if para renderizar apenas o que for visivel
             g2.drawImage(image, screenX, screenY, null);
+            
+            // DEBUG COLLISION
+            Color c = new Color(0, 0, 255, 200); // 255 max transparencia
+            g2.setColor(c);
+            g2.fillRect(screenX, screenY, 48, 48);
 
         }
     }

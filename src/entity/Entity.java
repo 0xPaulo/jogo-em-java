@@ -1,6 +1,7 @@
 // Declaração do pacote onde a classe se encontra
 package entity;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -12,30 +13,58 @@ import main.UtilityTool;
 
 // Classe que representa uma entidade do jogo
 public class Entity {
+
     GamePanel gp;
-
-    public int worldX, worldY;
-
+    public int worldX, worldY; // Entidade no mundo
     public int speed;
+
     // Imagens para a animação da entidade em diferentes direções
     public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
-    // Direção atual da entidade
-    public String direction;
-    // Contador de animação para controlar o número de sprites exibidos
-    public int spriteCounter = 0;
-    // Número de sprites a serem exibidos em cada animação
-    public int spriteNum = 1;
-    public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
+    public String direction; // Direção atual da entidade
+
+    public int spriteCounter = 0; // número de sprites exibidos
+    public int spriteNum = 1; // Número de sprites cada animação
+
+    public Rectangle solidArea = new Rectangle(0, 0, 60, 48);
+
     // Posição x e y padrão da área sólida para colisão
     public int solidAreaDefaltX, solidAreaDefaltY;
     public boolean collisionOn = false;
-    public int actionLockCounter = 0;
+
+    public int actionLockCounter = 0; // Delay movimento npc
+    String dialogues[] = new String[20];
+    int dialogueIndex = 0;
 
     public Entity(GamePanel gp) {
         this.gp = gp;
     }
 
-    public void setAction() {}
+    public void setAction() {
+    }
+
+    public void speak() {
+        if (dialogues[dialogueIndex] == null) { // [proximo nao existe] Se é null
+            dialogueIndex = 4; // Loopa na bandeirantes
+        }
+        gp.ui.currentDialogue = dialogues[dialogueIndex]; // [0] [1]
+        dialogueIndex++; // quando chamar o speak vai passa para o proximo index
+
+        switch (gp.player.direction) { // arrumando a direçao do npc para conversar
+            case "up":
+                direction = "down";
+                break;
+            case "down":
+                direction = "up";
+                break;
+            case "left":
+                direction = "right";
+                break;
+            case "right":
+                direction = "left";
+                break;
+        }
+    }
+
     public void update() {
 
         setAction();
@@ -71,6 +100,7 @@ public class Entity {
             spriteCounter = 0;
         }
     }
+
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
@@ -120,9 +150,15 @@ public class Entity {
                     break;
             }
             // if para renderizar apenas o que for visivel
-            g2.drawImage(image, screenX, screenY, null);
+            g2.drawImage(image, screenX + 6, screenY, null);
+
+            // // DEBUG COLLISION
+            // Color c = new Color(0, 0, 255, 100); // 255 max transparencia
+            // g2.setColor(c);
+            // g2.fillRect(screenX, screenY+5, 62, 48);
         }
     }
+
     public BufferedImage setup(String imagePath) {
 
         UtilityTool uTool = new UtilityTool();
