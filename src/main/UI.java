@@ -3,14 +3,19 @@ package main;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics2D;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 // import java.text.DecimalFormat;
+import java.io.InputStream;
 
 public class UI {
 
     GamePanel gp;
     Graphics2D g2;
-    Font arial_40, arial_80B, arial_30;
+    Font font1, font2;
     public boolean messageOn = false;
     public String message = "";
     int messageCounter = 0;
@@ -23,10 +28,25 @@ public class UI {
     public UI(GamePanel gp) {
         // FONTES
         this.gp = gp;
-        arial_40 = new Font("Areial", Font.PLAIN, 40);
-        arial_80B = new Font("Areial", Font.BOLD, 80);
-        arial_30 = new Font("Areial", Font.PLAIN, 30);
 
+        // arial_80B = new Font("Areial", Font.BOLD, 80);
+        // arial_30 = new Font("Areial", Font.PLAIN, 30);
+
+        try {
+
+            File ffont1 = new File("src\\res\\font\\m5x7.ttf");
+            File ffont2 = new File("src\\res\\font\\m6x11.ttf");
+            FileInputStream m5x7 = new FileInputStream(ffont1);
+            FileInputStream m6x11 = new FileInputStream(ffont2);
+            
+            font1 = Font.createFont(Font.TRUETYPE_FONT, m5x7);
+            font2 = Font.createFont(Font.TRUETYPE_FONT, m6x11);
+
+        } catch (FontFormatException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void showMessage(String text) {
@@ -37,8 +57,9 @@ public class UI {
     public void draw(Graphics2D g2) {
         this.g2 = g2;
 
-        g2.setFont(arial_40);
+        g2.setFont(font2);
         g2.setColor(Color.white);
+
         // PLAY STATE
         if (gp.gameState == gp.playState) {
             // Do playState stuff later

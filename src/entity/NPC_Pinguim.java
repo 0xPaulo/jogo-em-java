@@ -32,7 +32,7 @@ public class NPC_Pinguim extends Entity {
         dialogues[0] = "Salve, papa.";
         dialogues[1] = "Entao a sua nave caiu aqui.";
         dialogues[2] = "Eu costumava ser um grande \npinguim, mas depois que acertaram \num flecha no meu joelho.";
-        dialogues[3] = "Alguma coisa me diz que na escada \nla em baixo tem alguma coisa \ninterresante para voce.";
+        dialogues[3] = "Alguma coisa me diz que na escada \nla em baixo tem alguma coisa \ninteresante para voce.";
         dialogues[4] = "Nao falo com bandeirantes.";
     }
 
