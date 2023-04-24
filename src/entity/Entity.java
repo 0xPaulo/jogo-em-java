@@ -43,7 +43,7 @@ public class Entity {
 
     public void speak() {
         if (dialogues[dialogueIndex] == null) { // [proximo nao existe] Se é null
-            dialogueIndex = 4; // Loopa na bandeirantes
+            dialogueIndex = 3; // Loopa no joelho
         }
         gp.ui.currentDialogue = dialogues[dialogueIndex]; // [0] [1]
         dialogueIndex++; // quando chamar o speak vai passa para o proximo index

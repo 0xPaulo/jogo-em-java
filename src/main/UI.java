@@ -8,8 +8,6 @@ import java.awt.Graphics2D;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-// import java.text.DecimalFormat;
-import java.io.InputStream;
 
 public class UI {
 
@@ -21,6 +19,8 @@ public class UI {
     int messageCounter = 0;
     public boolean gameFinished = false;
     public String currentDialogue = "";
+    public int commandNum = 0;
+    public int titleScreenState = 0; // 0: menu 1:segundo menu
 
     // double playTime;
     // DecimalFormat dFormat = new DecimalFormat("#0.00");
@@ -38,7 +38,7 @@ public class UI {
             File ffont2 = new File("src\\res\\font\\m6x11.ttf");
             FileInputStream m5x7 = new FileInputStream(ffont1);
             FileInputStream m6x11 = new FileInputStream(ffont2);
-            
+
             font1 = Font.createFont(Font.TRUETYPE_FONT, m5x7);
             font2 = Font.createFont(Font.TRUETYPE_FONT, m6x11);
 
@@ -60,6 +60,10 @@ public class UI {
         g2.setFont(font2);
         g2.setColor(Color.white);
 
+        // TITLE STATE
+        if (gp.gameState == gp.titleState) {
+            drawTitleScreen();
+        }
         // PLAY STATE
         if (gp.gameState == gp.playState) {
             // Do playState stuff later
@@ -71,6 +75,115 @@ public class UI {
         // DIALOGUE STATE
         if (gp.gameState == gp.dialogueState) {
             drawDialogueScreen();
+        }
+    }
+
+    public void drawTitleScreen() {
+
+        if (titleScreenState == 0) {
+
+            g2.setColor(new Color(212, 144, 169)); // Rosa
+            g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+
+            // TITLE NAME
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 96F));
+            String text = "PAPA 200 DE QI";
+            int x = getXforCenterdText(text);
+            int y = gp.tileSize * 3;
+            // SHADOW
+            g2.setColor(Color.gray);
+            g2.drawString(text, x + 5, y + 6);
+            // MAIN COLOR
+            g2.setColor(Color.white);
+            g2.drawString(text, x, y);
+
+            // IMAGE TITLE SCREEN
+            x = gp.screenWidth / 2 - (gp.tileSize * 2) / 2; // Colocar no centro da tela
+            y += gp.tileSize * 2; // Aqui em baixo é bom colocar numeros divisores por 16
+            g2.drawImage(gp.player.down1, x, y, gp.tileSize * 2, gp.tileSize * 2, null);
+
+            // MENU
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 42F));
+
+            // commandNum = 0;
+
+            text = "NEM GAME";
+            x = getXforCenterdText(text);
+            y += gp.tileSize * 3.5; // Distancia
+            // Shadow
+            g2.setColor(Color.gray);
+            g2.drawString(text, x + 2, y + 2);
+            // Color
+            g2.setColor(Color.white);
+            g2.drawString(text, x, y);
+            if (commandNum == 0) {
+                // Icone g2.drawImage
+                g2.drawString(">", x - gp.tileSize, y);
+            }
+
+            text = "LOAD GAME";
+            x = getXforCenterdText(text);
+            y += gp.tileSize / 1.2; // 1 Tile a mais dividido
+            // Shadow
+            g2.setColor(Color.gray);
+            g2.drawString(text, x + 2, y + 2);
+            // Color
+            g2.setColor(Color.white);
+            g2.drawString(text, x, y);
+            if (commandNum == 1) {
+                // Icone g2.drawImage
+                g2.drawString(">", x - gp.tileSize, y);
+            }
+            text = "QUIT";
+            x = getXforCenterdText(text);
+            y += gp.tileSize / 1.2; // Mais um tile a mais dividido
+            // Shadow
+            g2.setColor(Color.gray);
+            g2.drawString(text, x + 2, y + 2);
+            // Color
+            g2.setColor(Color.white);
+            g2.drawString(text, x, y);
+            if (commandNum == 2) {
+                // Icone g2.drawImage
+                g2.drawString(">", x - gp.tileSize, y);
+            }
+        } else if (titleScreenState == 1) {
+            g2.setColor(Color.white);
+            g2.setFont(g2.getFont().deriveFont(42f));
+
+            String text = "Select your class!";
+            int x = getXforCenterdText(text);
+            int y = gp.tileSize * 3;
+            g2.drawString(text, x, y);
+
+            text = "Fighter";
+            x = getXforCenterdText(text);
+            y += gp.tileSize * 3;
+            g2.drawString(text, x, y);
+            if (commandNum == 0) {
+                g2.drawString(">", x - gp.tileSize, y);
+            }
+            text = "Thief";
+            x = getXforCenterdText(text);
+            y += gp.tileSize;
+            g2.drawString(text, x, y);
+            if (commandNum == 1) {
+                g2.drawString(">", x - gp.tileSize, y);
+            }
+            text = "Sorcerer";
+            x = getXforCenterdText(text);
+            y += gp.tileSize;
+            g2.drawString(text, x, y);
+            if (commandNum == 2) {
+                g2.drawString(">", x - gp.tileSize, y);
+            }
+            text = "Back";
+            x = getXforCenterdText(text);
+            y += gp.tileSize*2;
+            g2.drawString(text, x, y);
+            if (commandNum == 3) {
+                g2.drawString(">", x - gp.tileSize, y);
+            }
         }
     }
 
@@ -95,7 +208,7 @@ public class UI {
         drawSubWindow(x, y, width, height);
 
         // TEXTO DENTRO DA JANELA
-        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 32));
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 38));
         x += gp.tileSize;
         y += gp.tileSize;
 
@@ -120,7 +233,7 @@ public class UI {
 
     public int getXforCenterdText(String text) {
         int length = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-        int x = gp.screenHeight / 2 - length / 2;
+        int x = gp.screenWidth / 2 - length / 2;
         return x;
     }
 }

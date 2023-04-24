@@ -32,9 +32,9 @@ public class SuperObject {
             g2.drawImage(image, screenX, screenY, null);
             
             // DEBUG COLLISION
-            Color c = new Color(0, 0, 255, 200); // 255 max transparencia
-            g2.setColor(c);
-            g2.fillRect(screenX, screenY, 48, 48);
+            // Color c = new Color(0, 0, 255, 200); // 255 max transparencia
+            // g2.setColor(c);
+            // g2.fillRect(screenX, screenY, 48, 48);
 
         }
     }
