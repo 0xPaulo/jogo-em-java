@@ -1,6 +1,7 @@
 // Declaração do pacote onde a classe se encontra
 package entity;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -24,7 +25,8 @@ public class Entity {
     public int spriteCounter = 0; // número de sprites exibidos
     public int spriteNum = 1; // Número de sprites cada animação
 
-    public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
+    public Rectangle solidArea = new Rectangle(0, 0, 60, 48);
+
     // Posição x e y padrão da área sólida para colisão
     public int solidAreaDefaltX, solidAreaDefaltY;
     public boolean collisionOn = false;
@@ -37,8 +39,32 @@ public class Entity {
         this.gp = gp;
     }
 
-    public void setAction() {}
-    public void speak() {}
+    public void setAction() {
+    }
+
+    public void speak() {
+        if (dialogues[dialogueIndex] == null) { // [proximo nao existe] Se é null
+            dialogueIndex = 4; // Loopa na bandeirantes
+        }
+        gp.ui.currentDialogue = dialogues[dialogueIndex]; // [0] [1]
+        dialogueIndex++; // quando chamar o speak vai passa para o proximo index
+
+        switch (gp.player.direction) { // arrumando a direçao do npc para conversar
+            case "up":
+                direction = "down";
+                break;
+            case "down":
+                direction = "up";
+                break;
+            case "left":
+                direction = "right";
+                break;
+            case "right":
+                direction = "left";
+                break;
+        }
+    }
+
     public void update() {
 
         setAction();
@@ -124,7 +150,12 @@ public class Entity {
                     break;
             }
             // if para renderizar apenas o que for visivel
-            g2.drawImage(image, screenX, screenY, null);
+            g2.drawImage(image, screenX + 6, screenY, null);
+
+            // // DEBUG COLLISION
+            // Color c = new Color(0, 0, 255, 100); // 255 max transparencia
+            // g2.setColor(c);
+            // g2.fillRect(screenX, screenY+5, 62, 48);
         }
     }
 

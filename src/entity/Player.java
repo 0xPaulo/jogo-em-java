@@ -141,9 +141,12 @@ public class Player extends Entity {
     public void interactNPC(int i) { // Se o index nao é 999
         if (i != 999) { // o player ta tocando um npc
 
-            gp.gameState = gp.dialogueState;
-            gp.npc[i].speak();
+            if (gp.keyH.enterPressed == true) {
+                gp.gameState = gp.dialogueState;
+                gp.npc[i].speak();
+            }
         }
+        gp.keyH.enterPressed = false;
     }
 
     public void draw(Graphics2D g2) {
@@ -189,5 +192,10 @@ public class Player extends Entity {
 
         }
         g2.drawImage(image, screenX, screenY, null);
+
+        // DEBUG COLLISION
+        // Color c = new Color(255, 0, 0, 200); // 255 max transparencia
+        // g2.setColor(c);
+        // g2.fillRect(screenX + 12, screenY + 23, 20, 24);
     }
 }

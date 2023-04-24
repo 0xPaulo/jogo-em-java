@@ -6,10 +6,12 @@ import java.awt.event.KeyListener;
 public class Keyhandler implements KeyListener {
 
     GamePanel gp;
-    public boolean upPressed, downPressed, leftPressed, rightPressend;
+    public boolean upPressed, downPressed, leftPressed, rightPressend, enterPressed;
     public boolean arrowUpPressed, arrowDownPressed, arrowLeftPressed, arrowRightPressend;
+
     // DEBUG
     public boolean checkDrawTime = false;
+    public boolean checkCollisionArea = false;
 
     public Keyhandler(GamePanel gp) {
         this.gp = gp;
@@ -55,6 +57,9 @@ public class Keyhandler implements KeyListener {
             if (code == KeyEvent.VK_P) {
                 gp.gameState = gp.pauseState;
             }
+            if (code == KeyEvent.VK_E) {
+                enterPressed = true;
+            }
             // DEBUG
             if (code == KeyEvent.VK_T) {
                 if (checkDrawTime == false) {
@@ -63,6 +68,13 @@ public class Keyhandler implements KeyListener {
                     checkDrawTime = false;
                 }
             }
+            // if (code == KeyEvent.VK_R) {
+            // if (checkCollisionArea == false) {
+            // checkCollisionArea = true;
+            // } else if (checkCollisionArea == true) {
+            // checkCollisionArea = false;
+            // }
+            // }
         }
         // PAUSE STATE
         else if (gp.gameState == gp.pauseState) {
@@ -72,7 +84,7 @@ public class Keyhandler implements KeyListener {
         }
         // DIALOGUE STATE
         else if (gp.gameState == gp.dialogueState) {
-            if(code == KeyEvent.VK_ENTER){
+            if (code == KeyEvent.VK_E) {
                 gp.gameState = gp.playState;
             }
         }

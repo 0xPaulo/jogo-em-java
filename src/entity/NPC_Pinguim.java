@@ -4,12 +4,12 @@ import java.util.Random;
 
 import main.GamePanel;
 
-public class NPC_OldMan extends Entity {
+public class NPC_Pinguim extends Entity {
 
-    public NPC_OldMan(GamePanel gp) {
+    public NPC_Pinguim(GamePanel gp) {
 
         super(gp);
-        direction = "down";
+        direction = "right";
         speed = 1;
 
         getImage();
@@ -29,13 +29,14 @@ public class NPC_OldMan extends Entity {
     }
 
     public void setDialogue() {
-        dialogues[0] = "Hello, papa.";
+        dialogues[0] = "Salve, papa.";
         dialogues[1] = "Entao a sua nave caiu aqui.";
-        dialogues[2] = "Eu costumava ser um grande pinguim, mas depois que acertaram um flecha no meu joelho.";
-        dialogues[3] = "Alguma coisa me diz que na escada la em baixo tem alguma coisa interresante para voce.";
+        dialogues[2] = "Eu costumava ser um grande \npinguim, mas depois que acertaram \num flecha no meu joelho.";
+        dialogues[3] = "Alguma coisa me diz que na escada \nla em baixo tem alguma coisa \ninterresante para voce.";
+        dialogues[4] = "Nao falo com bandeirantes.";
     }
 
-    public void setAction() {
+    public void setAction() { // ia movimentaçao
 
         actionLockCounter++;
 
@@ -60,11 +61,9 @@ public class NPC_OldMan extends Entity {
     }
 
     public void speak() {
-        if(dialogues[dialogueIndex]== null){ // [proximo nao existe] Se é null 
-            dialogueIndex = 0; // Volta para o primeiro
-        }
-        gp.ui.currentDialogue = dialogues[dialogueIndex]; //[0] [1]
-        dialogueIndex++; // quando chamar o speak vai passa para o proximo index
+
+        // Do this character specific stuff
+        super.speak();
     }
 
 }
