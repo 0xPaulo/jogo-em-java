@@ -6,7 +6,7 @@ import java.awt.event.KeyListener;
 public class Keyhandler implements KeyListener {
 
     GamePanel gp;
-    public boolean upPressed, downPressed, leftPressed, rightPressend, enterPressed;
+    public boolean upPressed, downPressed, leftPressed, rightPressend, enterPressed, stopped;
     public boolean arrowUpPressed, arrowDownPressed, arrowLeftPressed, arrowRightPressend;
 
     // DEBUG
@@ -32,13 +32,13 @@ public class Keyhandler implements KeyListener {
             if (gp.ui.titleScreenState == 0) {
 
                 // commandNum = 0;
-                if (code == KeyEvent.VK_W) {
+                if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
                     gp.ui.commandNum--;
                     if (gp.ui.commandNum < 0) {
                         gp.ui.commandNum = 2;
                     }
                 }
-                if (code == KeyEvent.VK_S) {
+                if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
                     gp.ui.commandNum++;
                     if (gp.ui.commandNum > 2) {
                         gp.ui.commandNum = 0;
@@ -56,6 +56,8 @@ public class Keyhandler implements KeyListener {
                         System.exit(0);
                     }
                 }
+
+                // SUB MENU
             } else if (gp.ui.titleScreenState == 1) {
 
                 // commandNum = 0;
@@ -73,18 +75,18 @@ public class Keyhandler implements KeyListener {
                 }
                 if (code == KeyEvent.VK_ENTER) {
                     if (gp.ui.commandNum == 0) {
-                        System.out.println("Fazer alguma coisa para a classe lutador");
+                        System.out.println("Fazer alguma coisa para o papa");
                         gp.gameState = gp.playState;
                         // ou criar outro subtela
-                        gp.playMusic(0);
                     }
                     if (gp.ui.commandNum == 1) {
-                        System.out.println("Fazer alguma coisa para a classe ladrao");
+                        System.out.println("Fazer alguma coisa para a windows");
                         gp.gameState = gp.playState;
                     }
                     if (gp.ui.commandNum == 2) {
-                        System.out.println("Fazer alguma coisa para a classe mago");
+                        System.out.println("Fazer alguma coisa para o manteiga");
                         gp.gameState = gp.playState;
+                        gp.playMusic(0);
 
                     }
                     if (gp.ui.commandNum == 3) {
@@ -99,28 +101,36 @@ public class Keyhandler implements KeyListener {
 
             if (code == KeyEvent.VK_W) {
                 upPressed = true;
+                gp.timeWithoutCommands = 0;
             }
             if (code == KeyEvent.VK_S) {
                 downPressed = true;
+                gp.timeWithoutCommands = 0;
             }
             if (code == KeyEvent.VK_A) {
                 leftPressed = true;
+                gp.timeWithoutCommands = 0;
             }
             if (code == KeyEvent.VK_D) {
                 rightPressend = true;
+                gp.timeWithoutCommands = 0;
             }
 
             if (code == KeyEvent.VK_UP) {
                 upPressed = true;
+                gp.timeWithoutCommands = 0;
             }
             if (code == KeyEvent.VK_DOWN) {
                 downPressed = true;
+                gp.timeWithoutCommands = 0;
             }
             if (code == KeyEvent.VK_LEFT) {
                 leftPressed = true;
+                gp.timeWithoutCommands = 0;
             }
             if (code == KeyEvent.VK_RIGHT) {
                 rightPressend = true;
+                gp.timeWithoutCommands = 0;
             }
             if (code == KeyEvent.VK_P) {
                 gp.gameState = gp.pauseState;
@@ -128,25 +138,25 @@ public class Keyhandler implements KeyListener {
             if (code == KeyEvent.VK_E) {
                 enterPressed = true;
             }
-            // DEBUG
-            if (code == KeyEvent.VK_T) {
-                if (checkDrawTime == false) {
-                    checkDrawTime = true;
-                } else if (checkDrawTime == true) {
-                    checkDrawTime = false;
-                }
-            }
         }
-        // PAUSE STATE
+        // PAUSE STATE SAIR
         else if (gp.gameState == gp.pauseState) {
             if (code == KeyEvent.VK_P) {
                 gp.gameState = gp.playState;
             }
         }
-        // DIALOGUE STATE
+        // DIALOGUE STATE SAIR
         else if (gp.gameState == gp.dialogueState) {
             if (code == KeyEvent.VK_E) {
                 gp.gameState = gp.playState;
+            }
+        }
+        // DEBUG
+        if (code == KeyEvent.VK_T) {
+            if (checkDrawTime == false) {
+                checkDrawTime = true;
+            } else if (checkDrawTime == true) {
+                checkDrawTime = false;
             }
         }
     }

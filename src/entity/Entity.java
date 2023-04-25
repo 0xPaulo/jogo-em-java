@@ -18,7 +18,7 @@ public class Entity {
     public int speed;
 
     // Imagens para a animação da entidade em diferentes direções
-    public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
+    public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2, stopped;
     public String direction; // Direção atual da entidade
 
     public int spriteCounter = 0; // número de sprites exibidos

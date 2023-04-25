@@ -37,14 +37,15 @@ public class Player extends Entity {
 
     public void setDefaultValues() {
 
-        worldX = gp.tileSize * 25 - (gp.tileSize / 2);
-        worldY = gp.tileSize * 20;
+        worldX = gp.tileSize * 28; //- (gp.tileSize / 2);
+        worldY = gp.tileSize * 19;
         speed = 4;
-        direction = "down";
+        direction = "up";
     }
 
     public void getPlayerImage() {
 
+        stopped = setup("./src/res/player/papa_stopped.png");
         up1 = setup("./src/res/player/papa_up_1.png");
         up2 = setup("./src/res/player/papa_up_2.png");
         down1 = setup("./src/res/player/papa_down_1.png");
@@ -60,8 +61,8 @@ public class Player extends Entity {
         if (keyH.upPressed == true
                 || keyH.downPressed == true
                 || keyH.leftPressed == true
-                || keyH.rightPressend == true) {
-
+                || keyH.rightPressend == true
+                || keyH.stopped == true) {
             if (keyH.upPressed == true) {
                 direction = "up";
 
@@ -73,7 +74,8 @@ public class Player extends Entity {
 
             } else if (keyH.rightPressend == true) {
                 direction = "right";
-
+            } else if (keyH.stopped == true) {
+                direction = "stopped";
             }
             // CHECK TILE COLLISION
             collisionOn = false;
@@ -152,45 +154,52 @@ public class Player extends Entity {
     public void draw(Graphics2D g2) {
 
         BufferedImage image = null;
+        if (gp.timeWithoutCommands > gp.MAX_TIME_WITHOUT_COMMANDS) {
+            image = stopped;
+        } else {
 
-        switch (direction) {
-            case "up":
-                if (spriteNum == 1) {
-                    image = up1;
-                }
-                if (spriteNum == 2) {
-                    image = up2;
-                }
-                break;
+            switch (direction) {
+                case "up":
+                    if (spriteNum == 1) {
+                        image = up1;
+                    }
+                    if (spriteNum == 2) {
+                        image = up2;
+                    }
+                    break;
 
-            case "down":
-                if (spriteNum == 1) {
-                    image = down1;
-                }
-                if (spriteNum == 2) {
-                    image = down2;
-                }
-                break;
+                case "down":
+                    if (spriteNum == 1) {
+                        image = down1;
+                    }
+                    if (spriteNum == 2) {
+                        image = down2;
+                    }
+                    break;
 
-            case "left":
-                if (spriteNum == 1) {
-                    image = left1;
-                }
-                if (spriteNum == 2) {
-                    image = left2;
-                }
-                break;
+                case "left":
+                    if (spriteNum == 1) {
+                        image = left1;
+                    }
+                    if (spriteNum == 2) {
+                        image = left2;
+                    }
+                    break;
 
-            case "right":
-                if (spriteNum == 1) {
-                    image = right1;
-                }
-                if (spriteNum == 2) {
-                    image = right2;
-                }
-                break;
+                case "right":
+                    if (spriteNum == 1) {
+                        image = right1;
+                    }
+                    if (spriteNum == 2) {
+                        image = right2;
+                    }
+                    break;
+
+            }
+            gp.timeWithoutCommands++;
 
         }
+        // System.out.println(gp.timeWithoutCommands);
         g2.drawImage(image, screenX, screenY, null);
 
         // DEBUG COLLISION
