@@ -5,9 +5,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+
+import object.OBJ_Orange;
 
 public class UI {
 
@@ -21,16 +24,18 @@ public class UI {
     public String currentDialogue = "";
     public int commandNum = 0;
     public int titleScreenState = 0; // 0: menu 1:segundo menu
+    BufferedImage keyImage;
 
     // double playTime;
     // DecimalFormat dFormat = new DecimalFormat("#0.00");
 
+    
     public UI(GamePanel gp) {
+        
         // FONTES
         this.gp = gp;
-
-        // arial_80B = new Font("Areial", Font.BOLD, 80);
-        // arial_30 = new Font("Areial", Font.PLAIN, 30);
+        OBJ_Orange keyUI = new OBJ_Orange(gp);
+            keyImage = keyUI.image;
 
         try {
 
@@ -100,7 +105,7 @@ public class UI {
             // IMAGE TITLE SCREEN
             x = gp.screenWidth / 2 - (gp.tileSize * 2) / 2; // Colocar no centro da tela
             y += gp.tileSize * 2; // Aqui em baixo é bom colocar numeros divisores por 16
-            g2.drawImage(gp.player.down1, x, y, gp.tileSize * 2, gp.tileSize * 2, null);
+            g2.drawImage(gp.player.stopped, x, y, gp.tileSize * 2, gp.tileSize * 2, null);
 
             // MENU
             g2.setFont(g2.getFont().deriveFont(Font.BOLD, 42F));
@@ -118,12 +123,14 @@ public class UI {
             g2.drawString(text, x, y);
             if (commandNum == 0) {
                 // Icone g2.drawImage
-                g2.drawString(">", x - gp.tileSize, y);
+                // g2.drawString(">", x - gp.tileSize, y);
+                g2.drawImage(keyImage, x- gp.tileSize -10, y-45,null);
+
             }
 
             text = "LOAD GAME";
             x = getXforCenterdText(text);
-            y += gp.tileSize / 1.2; // 1 Tile a mais dividido
+            y += gp.tileSize+5; // 1 Tile a mais dividido
             // Shadow
             g2.setColor(Color.gray);
             g2.drawString(text, x + 2, y + 2);
@@ -132,11 +139,13 @@ public class UI {
             g2.drawString(text, x, y);
             if (commandNum == 1) {
                 // Icone g2.drawImage
-                g2.drawString(">", x - gp.tileSize, y);
+                // g2.drawString(">", x - gp.tileSize, y);
+                g2.drawImage(keyImage, x- gp.tileSize -10, y-45,null);
+
             }
             text = "QUIT";
             x = getXforCenterdText(text);
-            y += gp.tileSize / 1.2; // Mais um tile a mais dividido
+            y += gp.tileSize *1.2; // Mais um tile a mais dividido
             // Shadow
             g2.setColor(Color.gray);
             g2.drawString(text, x + 2, y + 2);
@@ -145,32 +154,34 @@ public class UI {
             g2.drawString(text, x, y);
             if (commandNum == 2) {
                 // Icone g2.drawImage
-                g2.drawString(">", x - gp.tileSize, y);
+                // g2.drawString(">", x - gp.tileSize, y);
+                g2.drawImage(keyImage, x- gp.tileSize -10, y-45,null);
+
             }
         } else if (titleScreenState == 1) {
             g2.setColor(Color.white);
             g2.setFont(g2.getFont().deriveFont(42f));
 
-            String text = "Select your class!";
+            String text = "Quem e voce?";
             int x = getXforCenterdText(text);
             int y = gp.tileSize * 3;
             g2.drawString(text, x, y);
 
-            text = "Fighter";
+            text = "PAPA";
             x = getXforCenterdText(text);
             y += gp.tileSize * 3;
             g2.drawString(text, x, y);
             if (commandNum == 0) {
                 g2.drawString(">", x - gp.tileSize, y);
             }
-            text = "Thief";
+            text = "Windows";
             x = getXforCenterdText(text);
             y += gp.tileSize;
             g2.drawString(text, x, y);
             if (commandNum == 1) {
                 g2.drawString(">", x - gp.tileSize, y);
             }
-            text = "Sorcerer";
+            text = "Manteiga";
             x = getXforCenterdText(text);
             y += gp.tileSize;
             g2.drawString(text, x, y);
@@ -179,7 +190,7 @@ public class UI {
             }
             text = "Back";
             x = getXforCenterdText(text);
-            y += gp.tileSize*2;
+            y += gp.tileSize * 2;
             g2.drawString(text, x, y);
             if (commandNum == 3) {
                 g2.drawString(">", x - gp.tileSize, y);
