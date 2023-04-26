@@ -1,10 +1,12 @@
 package entity;
 
 import java.awt.Graphics2D;
+// import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import main.GamePanel;
 import main.Keyhandler;
+// import object.OBJ_Teste;
 
 public class Player extends Entity {
 
@@ -37,10 +39,14 @@ public class Player extends Entity {
 
     public void setDefaultValues() {
 
-        worldX = gp.tileSize * 28; //- (gp.tileSize / 2);
+        worldX = gp.tileSize * 28; // - (gp.tileSize / 2);
         worldY = gp.tileSize * 19;
         speed = 4;
         direction = "up";
+
+        // PLAYER STATUS
+        maxLife = 6;
+        life = maxLife;
     }
 
     public void getPlayerImage() {
@@ -199,12 +205,11 @@ public class Player extends Entity {
             gp.timeWithoutCommands++;
 
         }
-        // System.out.println(gp.timeWithoutCommands);
+        // teste de dimençoes
+        // OBJ_Teste testeObj = new OBJ_Teste(gp);
+        // Image testeImagem = testeObj.image;
         g2.drawImage(image, screenX, screenY, null);
+        // g2.drawImage(testeImagem, screenX, screenY, null);
 
-        // DEBUG COLLISION
-        // Color c = new Color(255, 0, 0, 200); // 255 max transparencia
-        // g2.setColor(c);
-        // g2.fillRect(screenX + 12, screenY + 23, 20, 24);
     }
 }

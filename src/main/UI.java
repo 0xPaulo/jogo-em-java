@@ -5,18 +5,22 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+import object.OBJ_Heart;
 import object.OBJ_Orange;
+import object.SuperObject;
 
 public class UI {
 
     GamePanel gp;
     Graphics2D g2;
     Font font1, font2;
+    BufferedImage heart_full, heart_half, heart_blank;
     public boolean messageOn = false;
     public String message = "";
     int messageCounter = 0;
@@ -24,27 +28,23 @@ public class UI {
     public String currentDialogue = "";
     public int commandNum = 0;
     public int titleScreenState = 0; // 0: menu 1:segundo menu
-    BufferedImage keyImage;
+    Image laranjaImage;
 
     // double playTime;
     // DecimalFormat dFormat = new DecimalFormat("#0.00");
 
-    
     public UI(GamePanel gp) {
-        
-        // FONTES
+
         this.gp = gp;
-        OBJ_Orange keyUI = new OBJ_Orange(gp);
-            keyImage = keyUI.image;
 
         try {
-
-            File ffont1 = new File("src\\res\\font\\m5x7.ttf");
+            // FONTES
+            // File ffont1 = new File("src\\res\\font\\m5x7.ttf");
             File ffont2 = new File("src\\res\\font\\m6x11.ttf");
-            FileInputStream m5x7 = new FileInputStream(ffont1);
+            // FileInputStream m5x7 = new FileInputStream(ffont1);
             FileInputStream m6x11 = new FileInputStream(ffont2);
 
-            font1 = Font.createFont(Font.TRUETYPE_FONT, m5x7);
+            // font1 = Font.createFont(Font.TRUETYPE_FONT, m5x7);
             font2 = Font.createFont(Font.TRUETYPE_FONT, m6x11);
 
         } catch (FontFormatException e) {
@@ -52,6 +52,13 @@ public class UI {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        // CREATE HUD OBJECT
+        SuperObject heart = new OBJ_Heart(gp);
+        heart_full = heart.image;
+        heart_half = heart.image2;
+        heart_blank = heart.image3;
+
     }
 
     public void showMessage(String text) {
@@ -71,19 +78,57 @@ public class UI {
         }
         // PLAY STATE
         if (gp.gameState == gp.playState) {
-            // Do playState stuff later
+            drawPlayerLife();
         }
         // PAUSE STATE
         if (gp.gameState == gp.pauseState) {
+            // drawPlayerLife();
             drawPauseScreen();
         }
         // DIALOGUE STATE
         if (gp.gameState == gp.dialogueState) {
+            drawPlayerLife();
             drawDialogueScreen();
+
+        }
+    }
+
+    private void drawPlayerLife() {
+
+        gp.player.life = 3;
+
+        int x = gp.tileSize / 2;
+        int y = gp.tileSize / 2;
+        int i = 0;
+
+        // DRAW MAX LIFE
+        while (i < gp.player.maxLife / 2) {
+            g2.drawImage(heart_blank, x, y, null);
+            i++;
+            x += gp.tileSize;
+        }
+        // RESET
+        x = gp.tileSize / 2;
+        y = gp.tileSize / 2;
+        i = 0;
+
+        // DRAW CURRENT LIFE
+        while (i < gp.player.life) {
+            g2.drawImage(heart_half, x, y, null);
+            i++;
+            if (i < gp.player.life) {
+                g2.drawImage(heart_full, x, y, null);
+            }
+            i++;
+            x += gp.tileSize;
         }
     }
 
     public void drawTitleScreen() {
+
+        // Icone menu
+        OBJ_Orange iconeLaranja = new OBJ_Orange(gp);
+        laranjaImage = iconeLaranja.image;
 
         if (titleScreenState == 0) {
 
@@ -124,13 +169,13 @@ public class UI {
             if (commandNum == 0) {
                 // Icone g2.drawImage
                 // g2.drawString(">", x - gp.tileSize, y);
-                g2.drawImage(keyImage, x- gp.tileSize -10, y-45,null);
+                g2.drawImage(laranjaImage, x - gp.tileSize - 10, y - 45, null);
 
             }
 
             text = "LOAD GAME";
             x = getXforCenterdText(text);
-            y += gp.tileSize+5; // 1 Tile a mais dividido
+            y += gp.tileSize + 5; // 1 Tile a mais dividido
             // Shadow
             g2.setColor(Color.gray);
             g2.drawString(text, x + 2, y + 2);
@@ -140,12 +185,12 @@ public class UI {
             if (commandNum == 1) {
                 // Icone g2.drawImage
                 // g2.drawString(">", x - gp.tileSize, y);
-                g2.drawImage(keyImage, x- gp.tileSize -10, y-45,null);
+                g2.drawImage(laranjaImage, x - gp.tileSize - 10, y - 45, null);
 
             }
             text = "QUIT";
             x = getXforCenterdText(text);
-            y += gp.tileSize *1.2; // Mais um tile a mais dividido
+            y += gp.tileSize * 1.2; // Mais um tile a mais dividido
             // Shadow
             g2.setColor(Color.gray);
             g2.drawString(text, x + 2, y + 2);
@@ -155,7 +200,7 @@ public class UI {
             if (commandNum == 2) {
                 // Icone g2.drawImage
                 // g2.drawString(">", x - gp.tileSize, y);
-                g2.drawImage(keyImage, x- gp.tileSize -10, y-45,null);
+                g2.drawImage(laranjaImage, x - gp.tileSize - 10, y - 45, null);
 
             }
         } else if (titleScreenState == 1) {
