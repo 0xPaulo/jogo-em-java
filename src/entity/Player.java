@@ -37,10 +37,14 @@ public class Player extends Entity {
 
     public void setDefaultValues() {
 
-        worldX = gp.tileSize * 28; //- (gp.tileSize / 2);
+        worldX = gp.tileSize * 28; // - (gp.tileSize / 2);
         worldY = gp.tileSize * 19;
         speed = 4;
         direction = "up";
+
+        // PLAYER STATUS
+        maxLife = 6;
+        life = maxLife;
     }
 
     public void getPlayerImage() {
@@ -61,8 +65,9 @@ public class Player extends Entity {
         if (keyH.upPressed == true
                 || keyH.downPressed == true
                 || keyH.leftPressed == true
-                || keyH.rightPressend == true
-                || keyH.stopped == true) {
+                || keyH.rightPressed == true
+                || keyH.stopped == true
+                || keyH.enterPressed == true) {
             if (keyH.upPressed == true) {
                 direction = "up";
 
@@ -72,10 +77,12 @@ public class Player extends Entity {
             } else if (keyH.leftPressed == true) {
                 direction = "left";
 
-            } else if (keyH.rightPressend == true) {
+            } else if (keyH.rightPressed == true) {
                 direction = "right";
             } else if (keyH.stopped == true) {
                 direction = "stopped";
+            } else {
+
             }
             // CHECK TILE COLLISION
             collisionOn = false;
@@ -88,6 +95,11 @@ public class Player extends Entity {
             // CHECK NPC COLLISION
             int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
             interactNPC(npcIndex);
+
+            // CHECK EVENT
+            gp.eHandler.checkEvent();
+
+            gp.keyH.enterPressed = false;
 
             // IF COLLESION IS FALSE, PLAYER CAN MOVE
             if (collisionOn == false) {
@@ -148,63 +160,60 @@ public class Player extends Entity {
                 gp.npc[i].speak();
             }
         }
-        gp.keyH.enterPressed = false;
     }
 
     public void draw(Graphics2D g2) {
 
         BufferedImage image = null;
-        if (gp.timeWithoutCommands > gp.MAX_TIME_WITHOUT_COMMANDS) {
-            image = stopped;
-        } else {
+        // if (gp.timeWithoutCommands > gp.MAX_TIME_WITHOUT_COMMANDS) {
+        // image = stopped;
+        // } else {
 
-            switch (direction) {
-                case "up":
-                    if (spriteNum == 1) {
-                        image = up1;
-                    }
-                    if (spriteNum == 2) {
-                        image = up2;
-                    }
-                    break;
+        switch (direction) {
+            case "up":
+                if (spriteNum == 1) {
+                    image = up1;
+                }
+                if (spriteNum == 2) {
+                    image = up2;
+                }
+                break;
 
-                case "down":
-                    if (spriteNum == 1) {
-                        image = down1;
-                    }
-                    if (spriteNum == 2) {
-                        image = down2;
-                    }
-                    break;
+            case "down":
+                if (spriteNum == 1) {
+                    image = down1;
+                }
+                if (spriteNum == 2) {
+                    image = down2;
+                }
+                break;
 
-                case "left":
-                    if (spriteNum == 1) {
-                        image = left1;
-                    }
-                    if (spriteNum == 2) {
-                        image = left2;
-                    }
-                    break;
+            case "left":
+                if (spriteNum == 1) {
+                    image = left1;
+                }
+                if (spriteNum == 2) {
+                    image = left2;
+                }
+                break;
 
-                case "right":
-                    if (spriteNum == 1) {
-                        image = right1;
-                    }
-                    if (spriteNum == 2) {
-                        image = right2;
-                    }
-                    break;
-
-            }
-            gp.timeWithoutCommands++;
+            case "right":
+                if (spriteNum == 1) {
+                    image = right1;
+                }
+                if (spriteNum == 2) {
+                    image = right2;
+                }
+                break;
 
         }
-        // System.out.println(gp.timeWithoutCommands);
-        g2.drawImage(image, screenX, screenY, null);
+        // gp.timeWithoutCommands++;
 
-        // DEBUG COLLISION
-        // Color c = new Color(255, 0, 0, 200); // 255 max transparencia
-        // g2.setColor(c);
-        // g2.fillRect(screenX + 12, screenY + 23, 20, 24);
+        g2.drawImage(image, screenX, screenY, null);
     }
+    // teste de dimençoes
+    // OBJ_Teste testeObj = new OBJ_Teste(gp);
+    // Image testeImagem = testeObj.image;
+    // g2.drawImage(testeImagem, screenX, screenY, null);
+
 }

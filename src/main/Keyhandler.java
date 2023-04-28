@@ -6,7 +6,7 @@ import java.awt.event.KeyListener;
 public class Keyhandler implements KeyListener {
 
     GamePanel gp;
-    public boolean upPressed, downPressed, leftPressed, rightPressend, enterPressed, stopped;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, ePressed, stopped;
     public boolean arrowUpPressed, arrowDownPressed, arrowLeftPressed, arrowRightPressend;
 
     // DEBUG
@@ -46,7 +46,9 @@ public class Keyhandler implements KeyListener {
                 }
                 if (code == KeyEvent.VK_ENTER) {
                     if (gp.ui.commandNum == 0) {
-                        gp.ui.titleScreenState = 1;
+                        // gp.ui.titleScreenState = 1;
+                        gp.gameState = gp.playState;
+
                         // gp.playMusic(0);
                     }
                     if (gp.ui.commandNum == 1) {
@@ -101,43 +103,44 @@ public class Keyhandler implements KeyListener {
 
             if (code == KeyEvent.VK_W) {
                 upPressed = true;
-                gp.timeWithoutCommands = 0;
+                // gp.timeWithoutCommands = 0;
             }
             if (code == KeyEvent.VK_S) {
                 downPressed = true;
-                gp.timeWithoutCommands = 0;
+                // gp.timeWithoutCommands = 0;
             }
             if (code == KeyEvent.VK_A) {
                 leftPressed = true;
-                gp.timeWithoutCommands = 0;
+                // gp.timeWithoutCommands = 0;
             }
             if (code == KeyEvent.VK_D) {
-                rightPressend = true;
-                gp.timeWithoutCommands = 0;
+                rightPressed = true;
+                // gp.timeWithoutCommands = 0;
             }
 
             if (code == KeyEvent.VK_UP) {
                 upPressed = true;
-                gp.timeWithoutCommands = 0;
+                // gp.timeWithoutCommands = 0;
             }
             if (code == KeyEvent.VK_DOWN) {
                 downPressed = true;
-                gp.timeWithoutCommands = 0;
+                // gp.timeWithoutCommands = 0;
             }
             if (code == KeyEvent.VK_LEFT) {
                 leftPressed = true;
-                gp.timeWithoutCommands = 0;
+                // gp.timeWithoutCommands = 0;
             }
             if (code == KeyEvent.VK_RIGHT) {
-                rightPressend = true;
-                gp.timeWithoutCommands = 0;
+                rightPressed = true;
+                // gp.timeWithoutCommands = 0;
             }
             if (code == KeyEvent.VK_P) {
                 gp.gameState = gp.pauseState;
             }
-            if (code == KeyEvent.VK_E) {
+            if (code == KeyEvent.VK_ENTER) {
                 enterPressed = true;
             }
+
         }
         // PAUSE STATE SAIR
         else if (gp.gameState == gp.pauseState) {
@@ -147,7 +150,7 @@ public class Keyhandler implements KeyListener {
         }
         // DIALOGUE STATE SAIR
         else if (gp.gameState == gp.dialogueState) {
-            if (code == KeyEvent.VK_E) {
+            if (code == KeyEvent.VK_ENTER) {
                 gp.gameState = gp.playState;
             }
         }
@@ -176,9 +179,8 @@ public class Keyhandler implements KeyListener {
             leftPressed = false;
         }
         if (code == KeyEvent.VK_D) {
-            rightPressend = false;
+            rightPressed = false;
         }
-
         if (code == KeyEvent.VK_UP) {
             upPressed = false;
         }
@@ -189,7 +191,7 @@ public class Keyhandler implements KeyListener {
             leftPressed = false;
         }
         if (code == KeyEvent.VK_RIGHT) {
-            rightPressend = false;
+            rightPressed = false;
         }
     }
 }

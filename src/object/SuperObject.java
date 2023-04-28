@@ -1,6 +1,5 @@
 package object;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -9,7 +8,7 @@ import main.GamePanel;
 import main.UtilityTool;
 
 public class SuperObject {
-    public BufferedImage image;
+    public BufferedImage image, image2, image3;
     public String name;
     public boolean collision = false;
     public int worldX, worldY;
