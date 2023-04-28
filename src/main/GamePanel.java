@@ -32,8 +32,8 @@ public class GamePanel extends JPanel implements Runnable {
     int FPS = 60;
 
     // STOPPED SPRITE
-    public final int MAX_TIME_WITHOUT_COMMANDS = 100;
-    public int timeWithoutCommands = 0;
+    // public final int MAX_TIME_WITHOUT_COMMANDS = 80;
+    // public int timeWithoutCommands = 0;
 
 
     // SYSTEM
@@ -44,6 +44,7 @@ public class GamePanel extends JPanel implements Runnable {
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
     public UI ui = new UI(this);
+    public EventHandler eHandler = new EventHandler(this);
     Thread gameThread;
 
     // ENTITY AND OBJECT

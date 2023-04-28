@@ -65,6 +65,7 @@ public class Entity {
             case "right":
                 direction = "left";
                 break;
+            
         }
     }
 

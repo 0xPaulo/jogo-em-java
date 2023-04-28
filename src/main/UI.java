@@ -19,7 +19,7 @@ public class UI {
 
     GamePanel gp;
     Graphics2D g2;
-    Font font1, font2;
+    Font /*font1*/ font2;
     BufferedImage heart_full, heart_half, heart_blank;
     public boolean messageOn = false;
     public String message = "";
@@ -95,7 +95,7 @@ public class UI {
 
     private void drawPlayerLife() {
 
-        gp.player.life = 3;
+        // gp.player.life = 3;
 
         int x = gp.tileSize / 2;
         int y = gp.tileSize / 2;
@@ -260,9 +260,9 @@ public class UI {
         int x = gp.tileSize * 2; // 2 tiles da esquerda pra direita
         int y = gp.tileSize / 2; // de cima pra baixo
         int width = gp.screenWidth - (gp.tileSize * 4);
-        int height = gp.tileSize * 4; // 5 tiles de altura
+        int height = gp.tileSize * 4; // 4 tiles de altura
+        
         drawSubWindow(x, y, width, height);
-
         // TEXTO DENTRO DA JANELA
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 38));
         x += gp.tileSize;
@@ -275,7 +275,7 @@ public class UI {
     }
 
     public void drawSubWindow(int x, int y, int width, int height) {
-
+        // Cor do Retangulo
         Color c = new Color(0, 0, 0, 210); // 255 max transparencia
         g2.setColor(c);
         g2.fillRoundRect(x, y, width, height, 35, 35); // 35 borda
