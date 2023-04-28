@@ -35,7 +35,6 @@ public class GamePanel extends JPanel implements Runnable {
     // public final int MAX_TIME_WITHOUT_COMMANDS = 80;
     // public int timeWithoutCommands = 0;
 
-
     // SYSTEM
     TileManager tileM = new TileManager(this);
     public Keyhandler keyH = new Keyhandler(this);
