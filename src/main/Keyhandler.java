@@ -46,8 +46,8 @@ public class Keyhandler implements KeyListener {
                 }
                 if (code == KeyEvent.VK_ENTER) {
                     if (gp.ui.commandNum == 0) {
-                        // gp.ui.titleScreenState = 1;
-                        gp.gameState = gp.playState;
+                        gp.ui.titleScreenState = 1;
+                        // gp.gameState = gp.playState;
 
                         // gp.playMusic(0);
                     }

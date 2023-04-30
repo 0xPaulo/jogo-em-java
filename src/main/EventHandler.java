@@ -52,11 +52,11 @@ public class EventHandler {
                 healingPool(28, 18, gp.dialogueState);
             }
         }
-        // if (hit(25, 28, "up") == true) {
-        //     teleport(gp.dialogueState);
-        // }
+        if (hit(25, 28, "any") == true) {
+        teleport(gp.dialogueState);
+        }
         // if (hit(6, 42, "left") == true) {
-        //     teleportBack(gp.dialogueState);
+        // teleportBack(gp.dialogueState);
         // }
     }
 
@@ -104,20 +104,21 @@ public class EventHandler {
         }
     }
 
-//     private void teleport(int gameState) {
-//         gp.gameState = gameState;
-//         gp.ui.currentDialogue = "Teleportado!";
-//         gp.player.direction = "right";
-//         gp.player.worldX = gp.tileSize * 7;
-//         gp.player.worldY = gp.tileSize * 42;
 
-//     }
+private void teleport(int gameState) {
+gp.gameState = gameState;
+gp.ui.currentDialogue = "Teleportado!";
+gp.player.direction = "right";
+gp.player.worldX = gp.tileSize * 7;
+gp.player.worldY = gp.tileSize * 42;
 
-//     private void teleportBack(int gameState) {
-//         gp.gameState = gameState;
-//         gp.ui.currentDialogue = "Teleportado!";
-//         gp.player.direction = "down";
-//         gp.player.worldX = gp.tileSize * 25;
-//         gp.player.worldY = gp.tileSize * 29;
-//     }
+}}
+
+// private void teleportBack(int gameState) {
+// gp.gameState = gameState;
+// gp.ui.currentDialogue = "Teleportado!";
+// gp.player.direction = "down";
+// gp.player.worldX = gp.tileSize * 25;
+// gp.player.worldY = gp.tileSize * 29;
+// }
 // }

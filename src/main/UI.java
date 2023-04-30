@@ -219,7 +219,7 @@ public class UI {
             if (commandNum == 0) {
                 g2.drawString(">", x - gp.tileSize, y);
             }
-            text = "Windows";
+            text = "Quase";
             x = getXforCenterdText(text);
             y += gp.tileSize;
             g2.drawString(text, x, y);
