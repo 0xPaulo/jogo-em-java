@@ -5,6 +5,8 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+
 import javax.imageio.ImageIO;
 
 import main.GamePanel;
@@ -19,8 +21,7 @@ public class Entity {
 
     // Imagens para a animação da entidade em diferentes direções
     public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2, stopped;
-    public String direction; // Direção atual da entidade
-
+    public String direction = "down"; // Direção atual da entidad
     public int spriteCounter = 0; // número de sprites exibidos
     public int spriteNum = 1; // Número de sprites cada animação
 
@@ -29,10 +30,18 @@ public class Entity {
     // Posição x e y padrão da área sólida para colisão
     public int solidAreaDefaltX, solidAreaDefaltY;
     public boolean collisionOn = false;
+    public int type; // 0 = player, 1 = npc, 2 = monster
 
     public int actionLockCounter = 0; // Delay movimento npc
+    public boolean invincible = false;
+    public int invincibleCounter = 0;
     String dialogues[] = new String[20];
     int dialogueIndex = 0;
+
+    // SUPER OBJ COISAS
+    public BufferedImage image, image2, image3;
+    public String name;
+    public boolean collision = false;
 
     // CHARACTER STATUS
     public int maxLife;
@@ -65,7 +74,7 @@ public class Entity {
             case "right":
                 direction = "left";
                 break;
-            
+
         }
     }
 
@@ -76,7 +85,17 @@ public class Entity {
         collisionOn = false;
         gp.cChecker.checkTile(this);
         gp.cChecker.checkObject(this, false);
-        gp.cChecker.checkPlayer(this);
+        gp.cChecker.checkEntity(this, gp.npc);
+        gp.cChecker.checkEntity(this, gp.monster);
+        boolean contactPlayer = gp.cChecker.checkPlayer(this); // saber se esse this é o npc ou mon
+
+        if (this.type == 2 && contactPlayer == true) {
+            if (gp.player.invincible == false) {
+                // leva dano
+                gp.player.life -= 1;
+                gp.player.invincible = true;
+            }
+        }
 
         if (collisionOn == false) {
             switch (direction) {
@@ -117,6 +136,7 @@ public class Entity {
                 worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
 
             switch (direction) {
+
                 case "up":
                     if (spriteNum == 1) {
                         image = up1;
@@ -168,8 +188,10 @@ public class Entity {
         UtilityTool uTool = new UtilityTool();
         BufferedImage image = null;
         try {
+
             File file = new File(imagePath);
-            image = ImageIO.read(file);
+            FileInputStream fisFile = new FileInputStream(file);
+            image = ImageIO.read(fisFile);
             image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
         } catch (Exception e) {
             e.printStackTrace();
