@@ -11,9 +11,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+import entity.Entity;
 import object.OBJ_Heart;
 import object.OBJ_Orange;
-import object.SuperObject;
 
 public class UI {
 
@@ -54,7 +54,7 @@ public class UI {
         }
 
         // CREATE HUD OBJECT
-        SuperObject heart = new OBJ_Heart(gp);
+        Entity heart = new OBJ_Heart(gp);
         heart_full = heart.image;
         heart_half = heart.image2;
         heart_blank = heart.image3;
@@ -168,8 +168,8 @@ public class UI {
             g2.drawString(text, x, y);
             if (commandNum == 0) {
                 // Icone g2.drawImage
-                // g2.drawString(">", x - gp.tileSize, y);
-                g2.drawImage(laranjaImage, x - gp.tileSize - 10, y - 45, null);
+                g2.drawString(">", x - gp.tileSize, y);
+                // g2.drawImage(laranjaImage, x - gp.tileSize - 10, y - 45, null);
 
             }
 
@@ -184,8 +184,8 @@ public class UI {
             g2.drawString(text, x, y);
             if (commandNum == 1) {
                 // Icone g2.drawImage
-                // g2.drawString(">", x - gp.tileSize, y);
-                g2.drawImage(laranjaImage, x - gp.tileSize - 10, y - 45, null);
+                g2.drawString(">", x - gp.tileSize, y);
+                // g2.drawImage(laranjaImage, x - gp.tileSize - 10, y - 45, null);
 
             }
             text = "QUIT";
@@ -199,8 +199,8 @@ public class UI {
             g2.drawString(text, x, y);
             if (commandNum == 2) {
                 // Icone g2.drawImage
-                // g2.drawString(">", x - gp.tileSize, y);
-                g2.drawImage(laranjaImage, x - gp.tileSize - 10, y - 45, null);
+                g2.drawString(">", x - gp.tileSize, y);
+                // g2.drawImage(laranjaImage, x - gp.tileSize - 10, y - 45, null);
 
             }
         } else if (titleScreenState == 1) {

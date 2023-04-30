@@ -1,30 +1,15 @@
 package object;
 
-import java.io.File;
-import java.io.FileInputStream;
-
-import javax.imageio.ImageIO;
-
+import entity.Entity;
 import main.GamePanel;
 
-public class OBJ_Teste extends SuperObject {
-
-    GamePanel gp;
-
+public class OBJ_Teste extends Entity {
+        
     public OBJ_Teste(GamePanel gp) {
-
-        this.gp = gp;
+        super(gp);
 
         name = "Teste";
-        try {
+        down1 = setup("src\\res\\objects\\teste.png");
 
-            File file = new File("src\\res\\objects\\teste48.png");
-            FileInputStream fisFile = new FileInputStream(file);
-            image = ImageIO.read(fisFile);
-            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
-
 }

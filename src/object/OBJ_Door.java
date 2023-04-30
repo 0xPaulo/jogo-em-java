@@ -1,32 +1,29 @@
 package object;
 
-import java.io.File;
-import java.io.FileInputStream;
-
-import javax.imageio.ImageIO;
-
+import entity.Entity;
 import main.GamePanel;
 
-public class OBJ_Door extends SuperObject {
-        
-    GamePanel gp;
+public class OBJ_Door extends Entity {
 
     public OBJ_Door(GamePanel gp) {
-        
-        this.gp = gp;
+        super(gp);
 
-       name = "Door";
-        try {
+        direction = "down";
+        name = "Door";
 
-            File file = new File("src\\res\\objects\\door.png");
-            FileInputStream fisFile = new FileInputStream(file);
-            image = ImageIO.read(fisFile);
-            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        down1 = setup("src\\res\\objects\\door.png");
         collision = true;
-    }
 
+        solidArea.x = 0;
+        solidArea.y = 16;
+        solidArea.width = 48;
+        solidArea.height = 32;
+        solidAreaDefaltX = solidArea.x;
+        solidAreaDefaltY = solidArea.y;
+
+        // FileInputStream fisFile = new FileInputStream(file);
+        // image = ImageIO.read(fisFile);
+        // image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+    }
 }

@@ -1,5 +1,7 @@
 package entity;
 
+import java.awt.AlphaComposite;
+
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -37,8 +39,8 @@ public class Player extends Entity {
 
     public void setDefaultValues() {
 
-        worldX = gp.tileSize * 28; // - (gp.tileSize / 2);
-        worldY = gp.tileSize * 19;
+        worldX = gp.tileSize * 1; // - (gp.tileSize / 2);
+        worldY = gp.tileSize * 47;
         speed = 4;
         direction = "up";
 
@@ -96,6 +98,10 @@ public class Player extends Entity {
             int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
             interactNPC(npcIndex);
 
+            // CHECK MONSTER COLLISION
+            int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
+            contactMonster(monsterIndex);
+
             // CHECK EVENT
             gp.eHandler.checkEvent();
 
@@ -130,6 +136,14 @@ public class Player extends Entity {
                 spriteCounter = 0;
             }
         }
+        // THIS NEEDS TO BE OUTSIDE OF KEY IF STATEMENT
+        if (invincible == true) {
+            invincibleCounter++;
+            if (invincibleCounter > 60) {
+                invincible = false;
+                invincibleCounter = 0;
+            }
+        }
 
     }
 
@@ -160,6 +174,17 @@ public class Player extends Entity {
                 gp.npc[i].speak();
             }
         }
+    }
+
+    private void contactMonster(int i) {
+        if (i != 999) {
+            if (invincible == false) {
+                life -= 1;
+                invincible = true;
+            }
+
+        }
+
     }
 
     public void draw(Graphics2D g2) {
@@ -208,8 +233,17 @@ public class Player extends Entity {
 
         }
         // gp.timeWithoutCommands++;
-
+if(invincible == true){
+    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
+}
         g2.drawImage(image, screenX, screenY, null);
+// Reset alpha
+g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+
+        // DEBUG
+        // g2.setFont(new Font("Arieal", Font.PLAIN, 26));
+        // g2.setColor(Color.white);
+        // g2.drawString("Invencivel:" + invincibleCounter, 10, 400);
     }
     // teste de dimençoes
     // OBJ_Teste testeObj = new OBJ_Teste(gp);
