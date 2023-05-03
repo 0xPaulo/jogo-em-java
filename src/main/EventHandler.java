@@ -108,7 +108,7 @@ public class EventHandler {
         gp.gameState = gameState;
         gp.ui.currentDialogue = "Teleportado!";
         gp.player.direction = "right";
-        gp.player.worldX = gp.tileSize * 0;
+        gp.player.worldX = gp.tileSize * 1;
         gp.player.worldY = gp.tileSize * 42;
 
     }
