@@ -45,15 +45,15 @@ public class EventHandler {
 
         if (canTouchEvent == true) {
 
-            if (hit(17, 18, "left") == true) {
-                damagePit(17, 18, gp.dialogueState);
-            }
-            if (hit(28, 18, "up") == true) {
+            // if (hit(17, 18, "left") == true) {
+            // damagePit(17, 18, gp.dialogueState);
+            // }
+            if (hit(24, 28, "up") == true) {
                 healingPool(28, 18, gp.dialogueState);
             }
-        }
-        if (hit(25, 28, "up") == true) {
-            teleport(gp.dialogueState);
+            if (hit(34, 34, "any") == true) {
+                teleport(gp.dialogueState);
+            }
         }
         // if (hit(6, 42, "left") == true) {
         // teleportBack(gp.dialogueState);
@@ -108,8 +108,8 @@ public class EventHandler {
         gp.gameState = gameState;
         gp.ui.currentDialogue = "Teleportado!";
         gp.player.direction = "right";
-        gp.player.worldX = gp.tileSize * 0;
-        gp.player.worldY = gp.tileSize * 42;
+        gp.player.worldX = gp.tileSize * 40;
+        gp.player.worldY = gp.tileSize * 50;
 
     }
 }

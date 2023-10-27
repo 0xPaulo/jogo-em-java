@@ -1,4 +1,4 @@
-// Declaração do pacote onde a classe se encontra
+
 package entity;
 
 import java.awt.Graphics2D;

@@ -38,8 +38,8 @@ public class AssetSetter {
 
     public void setMonster() {
         gp.monster[0] = new MON_MatrixRobot(gp);
-        gp.monster[0].worldX = gp.tileSize * 7;
-        gp.monster[0].worldY = gp.tileSize * 46;
+        gp.monster[0].worldX = gp.tileSize * 42;
+        gp.monster[0].worldY = gp.tileSize * 54;
 
         gp.monster[1] = new MON_MatrixRobot(gp);
         gp.monster[1].worldX = gp.tileSize * 11;

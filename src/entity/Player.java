@@ -1,7 +1,7 @@
 package entity;
 
 import java.awt.AlphaComposite;
-
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -15,6 +15,7 @@ public class Player extends Entity {
     public final int screenX;
     public final int screenY;
     public boolean bike = false;
+    int standCounter = 0;
 
     public Player(GamePanel gp, Keyhandler keyH) {
 
@@ -26,8 +27,8 @@ public class Player extends Entity {
         screenY = gp.screenHeight / 2;
 
         solidArea = new Rectangle();
-        solidArea.x = 15; // pociçao
-        solidArea.y = 25; // pociçao
+        solidArea.x = 15; // posiçao
+        solidArea.y = 25; // posiçao
         solidAreaDefaltX = solidArea.x;
         solidAreaDefaltY = solidArea.y;
         solidArea.width = 15; // tamanho x
@@ -39,8 +40,8 @@ public class Player extends Entity {
 
     public void setDefaultValues() {
 
-        worldX = gp.tileSize * 1; // - (gp.tileSize / 2);
-        worldY = gp.tileSize * 47;
+        worldX = gp.tileSize * 24 - (gp.tileSize / 2);
+        worldY = gp.tileSize * 28 - (gp.tileSize / 2);
         speed = 4;
         direction = "up";
 
@@ -68,7 +69,6 @@ public class Player extends Entity {
                 || keyH.downPressed == true
                 || keyH.leftPressed == true
                 || keyH.rightPressed == true
-                || keyH.stopped == true
                 || keyH.enterPressed == true) {
             if (keyH.upPressed == true) {
                 direction = "up";
@@ -81,11 +81,8 @@ public class Player extends Entity {
 
             } else if (keyH.rightPressed == true) {
                 direction = "right";
-            } else if (keyH.stopped == true) {
-                direction = "stopped";
-            } else {
-
             }
+
             // CHECK TILE COLLISION
             collisionOn = false;
             gp.cChecker.checkTile(this);
@@ -135,6 +132,12 @@ public class Player extends Entity {
                 }
                 spriteCounter = 0;
             }
+        } else {
+            standCounter++;
+            if (standCounter > 80) {
+                direction = "stopped";
+                standCounter = 0;
+            }
         }
         // THIS NEEDS TO BE OUTSIDE OF KEY IF STATEMENT
         if (invincible == true) {
@@ -154,9 +157,9 @@ public class Player extends Entity {
             switch (objectName) {
 
                 case "Boots":
-                    gp.playSE(2);
+                    gp.playSE(2); // toca a musica 2 powerup
                     speed += 2; // velocidade bota
-                    gp.obj[i] = null;
+                    gp.obj[i] = null; // desaparecer
                     gp.ui.showMessage("Voce pegou botas!");
                     bike = false;
                     getPlayerImage();
@@ -190,9 +193,6 @@ public class Player extends Entity {
     public void draw(Graphics2D g2) {
 
         BufferedImage image = null;
-        // if (gp.timeWithoutCommands > gp.MAX_TIME_WITHOUT_COMMANDS) {
-        // image = stopped;
-        // } else {
 
         switch (direction) {
             case "up":
@@ -230,15 +230,27 @@ public class Player extends Entity {
                     image = right2;
                 }
                 break;
-
+            case "stopped":
+                if (spriteNum == 1) {
+                    image = stopped;
+                }
+                if (spriteNum == 2) {
+                    image = stopped;
+                }
+                break;
         }
+
         // gp.timeWithoutCommands++;
-if(invincible == true){
-    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
-}
+        if (invincible == true) {
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
+        }
         g2.drawImage(image, screenX, screenY, null);
-// Reset alpha
-g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+        // Colisao player
+        // g2.setColor(Color.red);
+        // g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width,
+        // solidArea.height);
+        // Reset alpha
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 
         // DEBUG
         // g2.setFont(new Font("Arieal", Font.PLAIN, 26));

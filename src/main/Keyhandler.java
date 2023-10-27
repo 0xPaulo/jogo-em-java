@@ -17,6 +17,7 @@ public class Keyhandler implements KeyListener {
         this.gp = gp;
     }
 
+    // Nao vou usar
     @Override
     public void keyTyped(KeyEvent e) {
     }
