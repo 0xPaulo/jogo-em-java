@@ -14,43 +14,43 @@ import entity.Entity;
 import entity.Player;
 import tile.TileManager;
 
+// próprio painel personalizado
 public class GamePanel extends JPanel implements Runnable {
 
-    // SCREEN SETTINGS
+    // Configurações da tela
     final int originalTileSize = 16; // 16x16 tile
     final int scale = 3;
-
     public final int tileSize = originalTileSize * scale; // 48x48 tile
+
     public final int maxScreenCol = 16;
     public final int maxScreenRow = 12;
+
     public final int screenWidth = tileSize * maxScreenCol; // 768 pixels
     public final int screenHeight = tileSize * maxScreenRow; // 576 pixels
 
     // WORLD SETTINGS
-    public final int maxWorldCol = 50;
-    public final int maxWorldRow = 50;
-
-    // FPS
-    int FPS = 60;
+    public final int maxWorldCol = 100;
+    public final int maxWorldRow = 100;
 
     // STOPPED SPRITE
     // public final int MAX_TIME_WITHOUT_COMMANDS = 80;
     // public int timeWithoutCommands = 0;
 
     // SYSTEM
+    int FPS = 60;
     TileManager tileM = new TileManager(this);
     public Keyhandler keyH = new Keyhandler(this);
+    Thread gameThread;
     Sound music = new Sound();
     Sound se = new Sound();
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
     public UI ui = new UI(this);
     public EventHandler eHandler = new EventHandler(this);
-    Thread gameThread;
 
     // ENTITY AND OBJECT
     public Player player = new Player(this, keyH);
-    public Entity obj[] = new Entity[10];
+    public Entity obj[] = new Entity[10]; // quantos é possivel mostrar na tela
     public Entity npc[] = new Entity[10];
     public Entity monster[] = new Entity[20];
     ArrayList<Entity> entityList = new ArrayList<>();
@@ -62,6 +62,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int pauseState = 2;
     public final int dialogueState = 3;
 
+    // Contrutor
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
@@ -74,20 +75,29 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setNPC();
         aSetter.setObject();
         aSetter.setMonster();
-        // playMusic(0);
-        // stopMusic();
+        playMusic(0);
+        stopMusic();
         gameState = titleState;
     }
+
+    // Atualizaçao da tela
 
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
     }
 
+    // Run Starta o loop
+    // Atualizar informaçao e Desenhar na tela
+    // Loop ⬇
+    // update();
+    // repaint();
+    // ⬆ Loop
+    // 60fps
     @Override
     public void run() {
 
-        double drawInterval = 1000000000 / FPS;
+        double drawInterval = 1000000000 / FPS; // 1 segundo
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;
@@ -117,6 +127,7 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
+    //
     public void update() {
 
         if (gameState == playState) {
@@ -143,6 +154,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         super.paintComponent(g);
 
+        // 2D tem mais opçoes
         Graphics2D g2 = (Graphics2D) g;
 
         // DEBUG
